@@ -9,7 +9,7 @@ public class ObjectFileReader {
         StringBuilder info = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            while(reader.ready()) {
+            while (reader.ready()) {
                 info.append(reader.readLine());
             }
             reader.close();

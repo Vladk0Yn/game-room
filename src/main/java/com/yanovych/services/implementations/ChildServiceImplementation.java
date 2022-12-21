@@ -10,8 +10,19 @@ import java.util.List;
 
 @Slf4j
 public class ChildServiceImplementation implements ChildService {
+    private static ChildServiceImplementation instance = null;
+    private final ChildRepository childFileRepository = ChildFromFileRepository.getInstance();
 
-    private final ChildRepository childFileRepository = new ChildFromFileRepository();
+    private ChildServiceImplementation() {
+    }
+
+    public static ChildServiceImplementation getInstance() {
+        if (instance == null) {
+            instance = new ChildServiceImplementation();
+        }
+        return instance;
+    }
+
     @Override
     public void createChild(Child child) {
         childFileRepository.addChild(child);
@@ -20,6 +31,8 @@ public class ChildServiceImplementation implements ChildService {
 
     @Override
     public List<Child> getAllChildren() {
-        return null;
+        List<Child> children = childFileRepository.getAllChildren();
+        log.info("IN getAll - children: {} successfully received", children.size());
+        return children;
     }
 }

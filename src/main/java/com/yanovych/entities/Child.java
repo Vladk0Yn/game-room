@@ -3,12 +3,18 @@ package com.yanovych.entities;
 import com.yanovych.entities.enums.Sex;
 import lombok.*;
 
-@AllArgsConstructor
 @Data
 public class Child {
+
     private Long id;
     private String name;
     private Integer age;
     private Sex sex;
     private Room room;
+
+    public Child(String name, Integer age, Sex sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
 }

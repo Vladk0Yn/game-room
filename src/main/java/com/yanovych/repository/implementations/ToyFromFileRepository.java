@@ -1,4 +1,18 @@
 package com.yanovych.repository.implementations;
 
-public class ToyFromFileRepository {
+import com.yanovych.repository.interfaces.ToyRepository;
+
+public class ToyFromFileRepository implements ToyRepository {
+
+    private static ToyFromFileRepository instance = null;
+
+    private ToyFromFileRepository() {
+    }
+
+    public ToyFromFileRepository getInstance() {
+        if (instance == null) {
+            instance = new ToyFromFileRepository();
+        }
+        return instance;
+    }
 }

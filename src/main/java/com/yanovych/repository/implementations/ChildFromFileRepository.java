@@ -8,9 +8,23 @@ import com.yanovych.helpers.ObjectFileWriter;
 import com.yanovych.repository.interfaces.ChildRepository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ChildFromFileRepository implements ChildRepository {
+
+    private static ChildFromFileRepository instance = null;
+
+    private ChildFromFileRepository() {
+    }
+
+    public static ChildFromFileRepository getInstance() {
+        if (instance == null) {
+            instance = new ChildFromFileRepository();
+        }
+        return instance;
+    }
+
     @Override
     public Child getChildById(long id) {
         List<Child> children =  this.getAllChildren();
@@ -26,8 +40,12 @@ public class ChildFromFileRepository implements ChildRepository {
     @Override
     public void addChild(Child child) {
         List<Child> children = this.getAllChildren();
-        if(children == null) {
+        if (children.isEmpty()) {
             children = new ArrayList<>();
+            child.setId(1L);
+        } else {
+            Long lastChildId = children.stream().max(Comparator.comparingLong(Child::getId)).get().getId();
+            child.setId(++lastChildId);
         }
         children.add(child);
         String childrenJsonFormat = new Gson().toJson(children);
