@@ -4,7 +4,6 @@ import lombok.*;
 
 import java.util.List;
 
-@AllArgsConstructor
 @Data
 public class Room {
     private Long id;
@@ -15,4 +14,12 @@ public class Room {
     private Integer maximumChildAge;
     private List<Child> childrenInRoom;
     private List<Toy> toysInRoom;
+
+    public Room(String name, Integer capacity, Double budget, Integer minimumChildAge, Integer maximumChildAge) {
+        this.name = name;
+        this.capacity = capacity;
+        this.budget = budget;
+        this.minimumChildAge = minimumChildAge;
+        this.maximumChildAge = maximumChildAge;
+    }
 }

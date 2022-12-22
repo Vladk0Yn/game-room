@@ -1,0 +1,1 @@
+[{"id":1,"name":"room1","capacity":23,"budget":234.32,"minimumChildAge":1,"maximumChildAge":23,"childrenInRoom":[{"id":0,"name":"Oleg","age":10,"sex":"MALE"},{"id":1,"name":"Anna","age":8,"sex":"FEMALE"}]},{"id":2,"name":"room2","capacity":32,"budget":232.0,"minimumChildAge":2,"maximumChildAge":23}]

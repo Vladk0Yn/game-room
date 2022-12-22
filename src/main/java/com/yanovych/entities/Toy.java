@@ -18,5 +18,4 @@ public class Toy {
     private ToySize size;
     private Color color;
     private ToyMaterial material;
-    private Room room;
 }

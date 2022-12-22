@@ -10,7 +10,8 @@ public class Child {
     private String name;
     private Integer age;
     private Sex sex;
-    private Room room;
+
+    private Long roomId;
 
     public Child(String name, Integer age, Sex sex) {
         this.name = name;
