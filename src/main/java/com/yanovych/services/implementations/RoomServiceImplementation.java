@@ -10,6 +10,7 @@ import com.yanovych.services.interfaces.RoomService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 public class RoomServiceImplementation implements RoomService {
@@ -29,22 +30,63 @@ public class RoomServiceImplementation implements RoomService {
     }
 
     @Override
+    public Room getRoomById(Long id) {
+        Room room = this.roomFileRepository.getRoomById(id);
+        if (room == null) {
+            log.error("IN getRoomById - no room with id: {}", id);
+            return null;
+        }
+        log.info("IN getRoomById - room: {} successfully found", room.getName());
+        return room;
+    }
+
+    @Override
+    public Room getRoomForChildAgeById(Long id, Child child) {
+        Room roomForChildAge = this.getAvailableRoomsForChildAge(child)
+                .stream()
+                .filter(room -> Objects.equals(room.getId(), id))
+                .findAny().orElse(null);
+        if (roomForChildAge == null) {
+            log.error("IN getRoomForChildAgeById - no room with id: {}", id);
+            return null;
+        }
+        log.info("IN getRoomForChildAgeById - room: {} successfully found", roomForChildAge.getName());
+        return roomForChildAge;
+    }
+
+    @Override
     public void createRoom(Room room) {
-        roomFileRepository.addRoom(room);
+        this.roomFileRepository.addRoom(room);
         log.info("IN create - room: {} successfully created", room.getName());
     }
 
     @Override
     public List<Room> getAllRooms() {
-        List<Room> rooms = roomFileRepository.getAllRooms();
+        List<Room> rooms = this.roomFileRepository.getAllRooms();
         log.info("IN getAll - rooms: {} successfully received", rooms.size());
         return rooms;
     }
 
     @Override
     public void addChildToRoom(Child child, Room room) {
-        roomFileRepository.addChildToRoom(child, room);
-        childFileRepository.addChildToRoom(child, room);
+        if (child.getRoomId() != null) {
+            this.removeChildFromRoom(child, getRoomById(child.getRoomId()));
+        }
+        this.roomFileRepository.addChildToRoom(child, room);
+        this.childFileRepository.addChildToRoom(child, room);
         log.info("IN addChild - child: {} successfully added - room: {}", child.getName(), room.getName());
+    }
+
+    @Override
+    public void removeChildFromRoom(Child child, Room room) {
+        this.roomFileRepository.removeChildFromRoom(child, room);
+        log.info("IN removeChild - child: {} successfully removed - room {}", child.getName(), room.getName());
+    }
+
+    @Override
+    public List<Room> getAvailableRoomsForChildAge(Child child) {
+        return this.getAllRooms().stream()
+                .filter(room -> room.getMinimumChildAge() <= child.getAge() && room.getMaximumChildAge() >= child.getAge())
+                .toList();
     }
 }

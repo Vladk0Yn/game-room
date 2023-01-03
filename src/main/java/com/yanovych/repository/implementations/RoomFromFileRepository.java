@@ -11,6 +11,7 @@ import com.yanovych.repository.interfaces.RoomRepository;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class RoomFromFileRepository implements RoomRepository {
 
@@ -25,6 +26,11 @@ public class RoomFromFileRepository implements RoomRepository {
             instance = new RoomFromFileRepository();
         }
         return instance;
+    }
+
+    @Override
+    public Room getRoomById(Long id) {
+        return this.getAllRooms().stream().filter(room -> Objects.equals(room.getId(), id)).findAny().orElse(null);
     }
 
     @Override
@@ -66,6 +72,14 @@ public class RoomFromFileRepository implements RoomRepository {
             childrenInRoom = new ArrayList<>();
         }
         childrenInRoom.add(child);
+        room.setChildrenInRoom(childrenInRoom);
+        this.updateRoom(room);
+    }
+
+    @Override
+    public void removeChildFromRoom(Child child, Room room) {
+        List<Child> childrenInRoom = room.getChildrenInRoom();
+        childrenInRoom.removeIf(childInRoom -> Objects.equals(childInRoom.getId(), child.getId()));
         room.setChildrenInRoom(childrenInRoom);
         this.updateRoom(room);
     }

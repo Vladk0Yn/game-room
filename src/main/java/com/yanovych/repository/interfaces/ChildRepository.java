@@ -6,6 +6,8 @@ import com.yanovych.entities.Room;
 import java.util.List;
 
 public interface ChildRepository {
+
+    Child getChildById(Long id);
     List<Child> getAllChildren();
     void addChild(Child child);
     void updateChild(Child child);

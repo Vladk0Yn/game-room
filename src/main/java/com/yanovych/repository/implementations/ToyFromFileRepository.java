@@ -9,7 +9,7 @@ public class ToyFromFileRepository implements ToyRepository {
     private ToyFromFileRepository() {
     }
 
-    public ToyFromFileRepository getInstance() {
+    public static ToyFromFileRepository getInstance() {
         if (instance == null) {
             instance = new ToyFromFileRepository();
         }

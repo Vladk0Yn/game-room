@@ -11,6 +11,7 @@ import com.yanovych.repository.interfaces.ChildRepository;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class ChildFromFileRepository implements ChildRepository {
     private List<Child> children = this.getAllChildren();
@@ -24,6 +25,11 @@ public class ChildFromFileRepository implements ChildRepository {
             instance = new ChildFromFileRepository();
         }
         return instance;
+    }
+
+    @Override
+    public Child getChildById(Long id) {
+        return getAllChildren().stream().filter(child -> Objects.equals(child.getId(), id)).findAny().orElse(null);
     }
 
     @Override
