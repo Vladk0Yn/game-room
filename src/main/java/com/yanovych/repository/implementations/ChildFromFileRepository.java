@@ -1,6 +1,5 @@
 package com.yanovych.repository.implementations;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
@@ -14,10 +13,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class ChildFromFileRepository implements ChildRepository {
-    private List<Child> children = this.getAllChildren();
+    private final ObjectFileReader<Child> reader;
+    private final ObjectFileWriter<Child> writer;
+    private List<Child> children;
     private static ChildFromFileRepository instance = null;
 
     private ChildFromFileRepository() {
+        this.reader = new ObjectFileReader<>();
+        this.writer = new ObjectFileWriter<>();
+        this.children = this.getAllChildren();
     }
 
     public static ChildFromFileRepository getInstance() {
@@ -29,13 +33,13 @@ public class ChildFromFileRepository implements ChildRepository {
 
     @Override
     public Child getChildById(Long id) {
-        return getAllChildren().stream().filter(child -> Objects.equals(child.getId(), id)).findAny().orElse(null);
+        return getAllChildren().stream()
+                .filter(child -> Objects.equals(child.getId(), id)).findAny().orElse(null);
     }
 
     @Override
     public List<Child> getAllChildren() {
-        String childrenListJson = ObjectFileReader.read("children.json");
-        return new Gson().fromJson(childrenListJson, new TypeToken<List<Child>>(){}.getType());
+        return this.reader.readListOfObjects("children.json", new TypeToken<ArrayList<Child>>(){}.getType());
     }
 
     @Override
@@ -44,12 +48,12 @@ public class ChildFromFileRepository implements ChildRepository {
             this.children = new ArrayList<>();
             child.setId(1L);
         } else {
-            Long lastChildId = this.children.stream().max(Comparator.comparingLong(Child::getId)).get().getId();
+            Long lastChildId = this.children.stream()
+                    .max(Comparator.comparingLong(Child::getId)).get().getId();
             child.setId(++lastChildId);
         }
         this.children.add(child);
-        String childrenJsonFormat = new Gson().toJson(this.children);
-        ObjectFileWriter.write("children.json", childrenJsonFormat, false);
+        this.writer.writeListOfObjects("children.json", this.children, false);
     }
 
     @Override
@@ -57,8 +61,7 @@ public class ChildFromFileRepository implements ChildRepository {
         for (int i = 0; i < this.children.size(); i++) {
             if (child.getId().equals(this.children.get(i).getId())) {
                 this.children.set(i, child);
-                String roomsJsonFormat = new Gson().toJson(this.children);
-                ObjectFileWriter.write("children.json", roomsJsonFormat, false);
+                this.writer.writeListOfObjects("children.json", this.children, false);
                 break;
             }
         }

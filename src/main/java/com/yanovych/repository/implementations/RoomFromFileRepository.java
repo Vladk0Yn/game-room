@@ -1,6 +1,5 @@
 package com.yanovych.repository.implementations;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
@@ -14,11 +13,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class RoomFromFileRepository implements RoomRepository {
-
-    private List<Room> rooms = this.getAllRooms();
+    private final ObjectFileReader<Room> reader;
+    private final ObjectFileWriter<Room> writer;
+    private List<Room> rooms;
     private static RoomFromFileRepository instance = null;
 
     private RoomFromFileRepository() {
+        this.reader = new ObjectFileReader<>();
+        this.writer = new ObjectFileWriter<>();
+        this.rooms = this.getAllRooms();
     }
 
     public static RoomFromFileRepository getInstance() {
@@ -30,13 +33,13 @@ public class RoomFromFileRepository implements RoomRepository {
 
     @Override
     public Room getRoomById(Long id) {
-        return this.getAllRooms().stream().filter(room -> Objects.equals(room.getId(), id)).findAny().orElse(null);
+        return this.getAllRooms().stream()
+                .filter(room -> Objects.equals(room.getId(), id)).findAny().orElse(null);
     }
 
     @Override
     public List<Room> getAllRooms() {
-        String roomsListJson = ObjectFileReader.read("rooms.json");
-        return new Gson().fromJson(roomsListJson, new TypeToken<List<Room>>(){}.getType());
+        return reader.readListOfObjects("rooms.json", new TypeToken<ArrayList<Room>>(){}.getType());
     }
 
     @Override
@@ -49,8 +52,7 @@ public class RoomFromFileRepository implements RoomRepository {
             room.setId(++lastRoomId);
         }
         this.rooms.add(room);
-        String roomsJsonFormat = new Gson().toJson(this.rooms);
-        ObjectFileWriter.write("rooms.json", roomsJsonFormat, false);
+        writer.writeListOfObjects("rooms.json", this.rooms, false);
     }
 
     @Override
@@ -58,8 +60,7 @@ public class RoomFromFileRepository implements RoomRepository {
         for (int i = 0; i < this.rooms.size(); i++) {
             if (room.getId().equals(this.rooms.get(i).getId())) {
                 this.rooms.set(i, room);
-                String roomsJsonFormat = new Gson().toJson(this.rooms);
-                ObjectFileWriter.write("rooms.json", roomsJsonFormat, false);
+                writer.writeListOfObjects("rooms.json", this.rooms, false);
                 break;
             }
         }

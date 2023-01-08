@@ -49,6 +49,8 @@ public class ChildServiceImplementation implements ChildService {
 
     @Override
     public List<Child> getChildrenWithoutRoom() {
-        return getAllChildren().stream().filter(c -> c.getRoomId() == null).toList();
+        List<Child> children = getAllChildren().stream().filter(c -> c.getRoomId() == null).toList();
+        log.info("IN getChildrenWithoutRoom - {} children successfully found", children.size());
+        return children;
     }
 }
