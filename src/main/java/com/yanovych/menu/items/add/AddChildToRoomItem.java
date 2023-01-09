@@ -42,11 +42,11 @@ public class AddChildToRoomItem implements MenuItem {
         while (room == null) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Available rooms for this child: ");
-            System.out.println(this.roomService.getAvailableRoomsForChildAge(child));
+            System.out.println(this.roomService.getAvailableRoomsForAge(child.getAge()));
             System.out.print("Enter room id  -> ");
             Long id = scanner.nextLong();
             scanner.nextLine();
-            room = this.roomService.getRoomForChildAgeById(id, child);
+            room = this.roomService.getRoomForChildByRoomId(id, child);
             if (room == null) {
                 System.out.println("No room with id " + id);
             }

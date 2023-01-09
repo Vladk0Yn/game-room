@@ -10,7 +10,6 @@ public class Child {
     private String name;
     private Integer age;
     private Sex sex;
-
     private Long roomId;
 
     public Child(String name, Integer age, Sex sex) {

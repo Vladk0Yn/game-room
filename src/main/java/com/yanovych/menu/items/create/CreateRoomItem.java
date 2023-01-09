@@ -19,7 +19,7 @@ public class CreateRoomItem implements MenuItem {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter room name -> ");
         String name = scanner.nextLine();
-        System.out.print("Enter capacity of room -> ");
+        System.out.print("Enter capacity (toys) of room -> ");
         Integer capacity = scanner.nextInt();
         scanner.nextLine();
         System.out.print("Enter room budget -> ");

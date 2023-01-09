@@ -59,12 +59,8 @@ public class ToyFromFileRepository implements ToyRepository {
 
     @Override
     public void addToyToRoom(Toy toy, Room room) {
-        //todo: implement method
-    }
-
-    @Override
-    public void removeToyFromRoom(Toy toy, Room room) {
-        //todo: implement method
+        toy.setToyRoomId(room.getId());
+        this.updateToy(toy);
     }
 
     @Override
