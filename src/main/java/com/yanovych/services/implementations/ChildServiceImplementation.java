@@ -37,13 +37,13 @@ public class ChildServiceImplementation implements ChildService {
     @Override
     public void createChild(Child child) {
         childFileRepository.addChild(child);
-        log.info("IN create - child: {} successfully created", child.getName());
+        log.info("IN createToy - child: {} successfully created", child.getName());
     }
 
     @Override
     public List<Child> getAllChildren() {
         List<Child> children = childFileRepository.getAllChildren();
-        log.info("IN getAll - children: {} successfully received", children.size());
+        log.info("IN getAllChildren - children: {} successfully received", children.size());
         return children;
     }
 

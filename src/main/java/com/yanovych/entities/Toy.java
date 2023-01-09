@@ -6,7 +6,6 @@ import com.yanovych.entities.enums.ToySize;
 import com.yanovych.entities.enums.ToyType;
 import lombok.*;
 
-@AllArgsConstructor
 @Data
 public class Toy {
     private Long id;
@@ -18,4 +17,14 @@ public class Toy {
     private ToySize size;
     private Color color;
     private ToyMaterial material;
+
+    public Toy(String name, Integer minimumAge, Double price, ToyType type, ToySize size, Color color, ToyMaterial material) {
+        this.name = name;
+        this.minimumAge = minimumAge;
+        this.price = price;
+        this.type = type;
+        this.size = size;
+        this.color = color;
+        this.material = material;
+    }
 }

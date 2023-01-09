@@ -1,8 +1,6 @@
 package com.yanovych.helpers;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.yanovych.entities.Child;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,7 +22,6 @@ public class ObjectFileReader<T> {
             throw new RuntimeException(e);
         }
 
-        ArrayList<T> obj = new Gson().fromJson(info.toString(), type);
-        return obj;
+        return new Gson().<ArrayList<T>>fromJson(info.toString(), type);
     }
 }

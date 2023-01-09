@@ -2,10 +2,12 @@ package com.yanovych.menu.items.create;
 
 import com.yanovych.entities.Child;
 import com.yanovych.entities.enums.Sex;
+import com.yanovych.entities.enums.ToyType;
 import com.yanovych.menu.MenuItem;
 import com.yanovych.services.implementations.ChildServiceImplementation;
 import com.yanovych.services.interfaces.ChildService;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class CreateChildItem implements MenuItem {
@@ -22,7 +24,7 @@ public class CreateChildItem implements MenuItem {
         System.out.print("Enter child age -> ");
         Integer age = scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Enter child sex (male/female) -> ");
+        System.out.print("Choose sex of child: \n" + Arrays.toString(Sex.values()) + "\n -> ");
         String sex = scanner.nextLine();
 
         return new Child(name, age, Sex.valueOf(sex.toUpperCase()));
