@@ -3,6 +3,7 @@ package com.yanovych.repository.implementations;
 import com.google.gson.reflect.TypeToken;
 import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
+import com.yanovych.entities.Toy;
 import com.yanovych.helpers.ObjectFileReader;
 import com.yanovych.helpers.ObjectFileWriter;
 import com.yanovych.repository.interfaces.RoomRepository;
@@ -82,6 +83,27 @@ public class RoomFromFileRepository implements RoomRepository {
         List<Child> childrenInRoom = room.getChildrenInRoom();
         childrenInRoom.removeIf(childInRoom -> Objects.equals(childInRoom.getId(), child.getId()));
         room.setChildrenInRoom(childrenInRoom);
+        this.updateRoom(room);
+    }
+
+    @Override
+    public void addToyToRoom(Toy toy, Room room) {
+        List<Toy> toysInRoom = room.getToysInRoom();
+        if (toysInRoom == null) {
+           toysInRoom = new ArrayList<>();
+        }
+        toysInRoom.add(toy);
+        room.setBudget(room.getBudget() - toy.getPrice());
+        room.setToysInRoom(toysInRoom);
+        this.updateRoom(room);
+    }
+
+    @Override
+    public void removeToyFromRoom(Toy toy, Room room) {
+        List<Toy> toysInRoom = room.getToysInRoom();
+        room.setBudget(room.getBudget() + toy.getPrice());
+        toysInRoom.removeIf(toyInRoom -> Objects.equals(toyInRoom.getId(), toy.getId()));
+        room.setToysInRoom(toysInRoom);
         this.updateRoom(room);
     }
 }

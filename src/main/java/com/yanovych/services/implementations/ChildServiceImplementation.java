@@ -37,7 +37,7 @@ public class ChildServiceImplementation implements ChildService {
     @Override
     public void createChild(Child child) {
         childFileRepository.addChild(child);
-        log.info("IN createToy - child: {} successfully created", child.getName());
+        log.info("IN createChild - child: {} successfully created", child.getName());
     }
 
     @Override

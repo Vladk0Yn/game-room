@@ -4,20 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63b2719f-3303-4171-9b28-a8d789b69f17" name="Changes" comment="update file reader/writer classes, create toy repository">
+    <list default="true" id="63b2719f-3303-4171-9b28-a8d789b69f17" name="Changes" comment="fix bugs, small changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children.json" beforeDir="false" afterPath="$PROJECT_DIR$/children.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Child.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Child.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Toy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Toy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/ObjectFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/ObjectFileReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/create/CreateChildItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/create/CreateChildItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/create/CreateRoomItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/create/CreateRoomItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/create/CreateToyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/create/CreateToyItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/add/AddChildToRoomItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/add/AddChildToRoomItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/print/PrintToysItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/print/PrintToysItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/implementations/RoomFromFileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/implementations/RoomFromFileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/implementations/ToyFromFileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/implementations/ToyFromFileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/interfaces/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/interfaces/RoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/interfaces/ToyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/interfaces/ToyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ChildServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ChildServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/RoomServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/RoomServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ToyServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ToyServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ToyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ToyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toys.json" beforeDir="false" afterPath="$PROJECT_DIR$/toys.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/RoomService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +119,8 @@
       <workItem from="1673203433224" duration="3113000" />
       <workItem from="1673256796674" duration="265000" />
       <workItem from="1673263424382" duration="87000" />
-      <workItem from="1673274812944" duration="1548000" />
+      <workItem from="1673274812944" duration="4528000" />
+      <workItem from="1673286040199" duration="2889000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1671143247989</created>
@@ -157,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672775854335</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix bugs, small changes">
+      <created>1673276440202</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1673276440202</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,21 +187,7 @@
     <MESSAGE value="use singleton pattern for repositories and services, create child input and out from menu" />
     <MESSAGE value="create add-child-to-room function in services, bug fix" />
     <MESSAGE value="create add-child console logic (input/output needed data), fix bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="create add-child console logic (input/output needed data), fix bugs" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/RoomService.java</url>
-          <line>12</line>
-          <properties class="com.yanovych.services.interfaces.RoomService" method="addChildToRoom">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="fix bugs, small changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bugs, small changes" />
   </component>
 </project>

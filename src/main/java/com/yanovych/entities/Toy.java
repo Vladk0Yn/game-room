@@ -12,7 +12,7 @@ public class Toy {
     private String name;
     private Integer minimumAge;
     private Double price;
-    private Room toyRoom;
+    private Long toyRoomId;
     private ToyType type;
     private ToySize size;
     private Color color;

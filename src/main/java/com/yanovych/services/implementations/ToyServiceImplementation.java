@@ -49,6 +49,8 @@ public class ToyServiceImplementation implements ToyService {
 
     @Override
     public List<Toy> getToysWithoutRoom() {
-        return null;
+        List<Toy> toys = getAllToys().stream().filter(c -> c.getToyRoomId() == null).toList();
+        log.info("IN getToysWithoutRoom - {} toys successfully found", toys.size());
+        return toys;
     }
 }
