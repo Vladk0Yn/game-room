@@ -2,6 +2,9 @@ package com.yanovych.menu.items.add;
 
 import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
+import com.yanovych.helpers.printers.ChildPrinter;
+import com.yanovych.helpers.printers.EntityPrinter;
+import com.yanovych.helpers.printers.RoomPrinter;
 import com.yanovych.menu.MenuItem;
 import com.yanovych.services.implementations.ChildServiceImplementation;
 import com.yanovych.services.implementations.RoomServiceImplementation;
@@ -24,8 +27,9 @@ public class AddChildToRoomItem implements MenuItem {
         Child child = null;
         while (child == null) {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Children without room (you can add another children too): ");
-            System.out.println(this.childService.getChildrenWithoutRoom());
+            System.out.println("All children: ");
+            EntityPrinter printer = new ChildPrinter(this.childService.getAllChildren());
+            printer.print();
             System.out.print("Enter child id which you want add to room -> ");
             Long id = scanner.nextLong();
             scanner.nextLine();
@@ -42,7 +46,8 @@ public class AddChildToRoomItem implements MenuItem {
         while (room == null) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Available rooms for this child: ");
-            System.out.println(this.roomService.getAvailableRoomsForAge(child.getAge()));
+            EntityPrinter printer = new RoomPrinter(this.roomService.getAvailableRoomsForAge(child.getAge()));
+            printer.print();
             System.out.print("Enter room id  -> ");
             Long id = scanner.nextLong();
             scanner.nextLine();

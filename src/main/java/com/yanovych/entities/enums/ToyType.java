@@ -1,5 +1,5 @@
 package com.yanovych.entities.enums;
 
 public enum ToyType {
-    EDUCATIONAL, ELECTRONIC, DOLL, ANIMAL, CAR, CONSTRUCTOR
+    ANIMAL, CAR, CONSTRUCTOR, DOLL, EDUCATIONAL, ELECTRONIC
 }

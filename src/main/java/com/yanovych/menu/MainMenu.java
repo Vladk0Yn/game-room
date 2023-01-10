@@ -2,6 +2,7 @@ package com.yanovych.menu;
 
 import com.yanovych.menu.items.*;
 import com.yanovych.menu.items.add.AddChildToRoomItem;
+import com.yanovych.menu.items.add.AddToyToRoom;
 import com.yanovych.menu.items.create.CreateChildItem;
 import com.yanovych.menu.items.create.CreateToyItem;
 import com.yanovych.menu.items.create.CreateRoomItem;
@@ -22,7 +23,7 @@ public class MainMenu {
         menuItems.put("new-room", new CreateRoomItem());
         menuItems.put("new-toy", new CreateToyItem());
         menuItems.put("add-child", new AddChildToRoomItem());
-        menuItems.put("add-toy", new CreateToyItem());
+        menuItems.put("add-toy", new AddToyToRoom());
         menuItems.put("print-children", new PrintChildrenItem());
         menuItems.put("print-toys", new PrintToysItem());
         menuItems.put("print-rooms", new PrintRoomsItem());

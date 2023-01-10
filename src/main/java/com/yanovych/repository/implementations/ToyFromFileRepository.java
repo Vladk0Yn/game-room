@@ -35,7 +35,7 @@ public class ToyFromFileRepository implements ToyRepository {
     @Override
     public Toy getToyById(Long id) {
         return getAllToys().stream()
-                .filter(child -> Objects.equals(child.getId(), id)).findAny().orElse(null);
+                .filter(toy -> Objects.equals(toy.getId(), id)).findAny().orElse(null);
     }
 
     @Override

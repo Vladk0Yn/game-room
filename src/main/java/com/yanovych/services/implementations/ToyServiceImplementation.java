@@ -1,13 +1,16 @@
 package com.yanovych.services.implementations;
 
 import com.yanovych.entities.Child;
+import com.yanovych.entities.Room;
 import com.yanovych.entities.Toy;
 import com.yanovych.repository.implementations.ToyFromFileRepository;
 import com.yanovych.repository.interfaces.ToyRepository;
 import com.yanovych.services.interfaces.ToyService;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ToyServiceImplementation implements ToyService {
@@ -52,5 +55,19 @@ public class ToyServiceImplementation implements ToyService {
         List<Toy> toys = getAllToys().stream().filter(c -> c.getToyRoomId() == null).toList();
         log.info("IN getToysWithoutRoom - {} toys successfully found", toys.size());
         return toys;
+    }
+
+    @Override
+    public List<Toy> sortToysInRoomByType(Room room) {
+        return room.getToysInRoom().stream()
+                .sorted(Comparator.comparing(Toy::getType))
+                .toList();
+    }
+
+    @Override
+    public List<Toy> findToysInRoomByDiapasonOfPrice(Room room, Double priceMin, Double priceMax) {
+        return room.getToysInRoom().stream()
+                .filter(toy -> toy.getPrice() >= priceMin && toy.getPrice() <= priceMax)
+                .toList();
     }
 }
