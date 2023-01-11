@@ -7,15 +7,12 @@ import com.yanovych.helpers.printers.EntityPrinter;
 import com.yanovych.helpers.printers.RoomPrinter;
 import com.yanovych.helpers.printers.ToyPrinter;
 import com.yanovych.menu.MenuItem;
-import com.yanovych.menu.items.print.PrintRoomsItem;
-import com.yanovych.menu.items.print.PrintToysItem;
 import com.yanovych.services.implementations.RoomServiceImplementation;
 import com.yanovych.services.implementations.ToyServiceImplementation;
 import com.yanovych.services.interfaces.RoomService;
 import com.yanovych.services.interfaces.ToyService;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class SortToysInRoomItem implements MenuItem {

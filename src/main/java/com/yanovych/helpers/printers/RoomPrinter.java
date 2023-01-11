@@ -26,16 +26,12 @@ public class RoomPrinter implements EntityPrinter {
             System.out.println(" | Min/Max age: " + room.getMinimumChildAge() + "/" + room.getMaximumChildAge());
             if (room.getChildrenInRoom() != null && !room.getChildrenInRoom().isEmpty()) {
                 System.out.print("Children in room { ");
-                for(Child child : room.getChildrenInRoom()) {
-                    System.out.print(child.getName() + "; ");
-                }
+                room.getChildrenInRoom().forEach(child -> System.out.print(child.getName() + "; "));
                 System.out.println("}");
             }
             if (room.getToysInRoom() != null && !room.getToysInRoom().isEmpty()) {
                 System.out.print("Toys in room { ");
-                for(Toy toy : room.getToysInRoom()) {
-                    System.out.print(toy.getName() + "; ");
-                }
+                room.getToysInRoom().forEach(toy -> System.out.print(toy.getName() + "; "));
                 System.out.println("}");
             }
         }
