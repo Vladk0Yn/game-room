@@ -17,4 +17,5 @@ public interface RoomService {
     void addToyToRoom(Toy toy, Room room);
     void removeToyFromRoom(Toy toy, Room room);
     List<Room> getAvailableRoomsForAge(Integer age);
+    List<Room> getAvailableRoomsForToy(Toy toy);
 }
