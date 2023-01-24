@@ -2,7 +2,6 @@ package com.yanovych.menu.items.create;
 
 import com.yanovych.entities.Child;
 import com.yanovych.entities.enums.Sex;
-import com.yanovych.entities.enums.ToyType;
 import com.yanovych.menu.MenuItem;
 import com.yanovych.services.implementations.ChildServiceImplementation;
 import com.yanovych.services.interfaces.ChildService;

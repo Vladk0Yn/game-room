@@ -1,8 +1,6 @@
 package com.yanovych.menu.items.print;
 
-import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
-import com.yanovych.entities.Toy;
 import com.yanovych.helpers.printers.EntityPrinter;
 import com.yanovych.helpers.printers.RoomPrinter;
 import com.yanovych.menu.MenuItem;

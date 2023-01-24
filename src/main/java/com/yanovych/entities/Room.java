@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class Room {
     private Long id;
     private String name;

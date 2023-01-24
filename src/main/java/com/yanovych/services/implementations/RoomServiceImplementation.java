@@ -3,12 +3,10 @@ package com.yanovych.services.implementations;
 import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
 import com.yanovych.entities.Toy;
-import com.yanovych.repository.implementations.ChildFromFileRepository;
-import com.yanovych.repository.implementations.RoomFromFileRepository;
-import com.yanovych.repository.implementations.ToyFromFileRepository;
-import com.yanovych.repository.interfaces.ChildRepository;
-import com.yanovych.repository.interfaces.RoomRepository;
-import com.yanovych.repository.interfaces.ToyRepository;
+import com.yanovych.repositories.implementations.*;
+import com.yanovych.repositories.interfaces.ChildRepository;
+import com.yanovych.repositories.interfaces.RoomRepository;
+import com.yanovych.repositories.interfaces.ToyRepository;
 import com.yanovych.services.interfaces.RoomService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,11 +18,31 @@ import java.util.Objects;
 public class RoomServiceImplementation implements RoomService {
 
     private static RoomServiceImplementation instance = null;
-    private final RoomRepository roomFileRepository = RoomFromFileRepository.getInstance();
-    private final ChildRepository childFileRepository = ChildFromFileRepository.getInstance();
-    private final ToyRepository toyFileRepository = ToyFromFileRepository.getInstance();
+    private final RoomRepository roomRepository;
+    private final ChildRepository childRepository;
+    private final ToyRepository toyRepository;
 
     private RoomServiceImplementation() {
+        String dataSource = System.getenv("DATA_SOURCE");
+        dataSource = dataSource == null ? "file" : dataSource;
+        switch (dataSource) {
+            case "file" -> {
+                roomRepository = RoomFromFileRepository.getInstance();
+                childRepository = ChildFromFileRepository.getInstance();
+                toyRepository = ToyFromFileRepository.getInstance();
+            }
+            case "db" -> {
+                roomRepository = RoomFromDbRepository.getInstance();
+                childRepository = ChildFromDbRepository.getInstance();
+                toyRepository = ToyFromDbRepository.getInstance();
+            }
+            default -> {
+                log.error("Error at reading environment variable DATA_SOURCE, default data source is file");
+                childRepository = ChildFromFileRepository.getInstance();
+                roomRepository = RoomFromFileRepository.getInstance();
+                toyRepository = ToyFromFileRepository.getInstance();
+            }
+        }
     }
 
     public static RoomServiceImplementation getInstance() {
@@ -36,7 +54,7 @@ public class RoomServiceImplementation implements RoomService {
 
     @Override
     public Room getRoomById(Long id) {
-        Room room = this.roomFileRepository.getRoomById(id);
+        Room room = this.roomRepository.getRoomById(id);
         if (room == null) {
             log.error("IN getRoomById - no room with id: {}", id);
             return null;
@@ -74,13 +92,13 @@ public class RoomServiceImplementation implements RoomService {
 
     @Override
     public void createRoom(Room room) {
-        this.roomFileRepository.addRoom(room);
+        this.roomRepository.addRoom(room);
         log.info("IN create - room: {} successfully created", room.getName());
     }
 
     @Override
     public List<Room> getAllRooms() {
-        List<Room> rooms = this.roomFileRepository.getAllRooms();
+        List<Room> rooms = this.roomRepository.getAllRooms();
         log.info("IN getAll - rooms: {} successfully received", rooms.size());
         return rooms;
     }
@@ -94,14 +112,14 @@ public class RoomServiceImplementation implements RoomService {
         if (child.getRoomId() != null) {
             this.removeChildFromRoom(child, getRoomById(child.getRoomId()));
         }
-        this.childFileRepository.addChildToRoom(child, room);
-        this.roomFileRepository.addChildToRoom(child, room);
+        this.childRepository.addChildToRoom(child, room);
+        this.roomRepository.addChildToRoom(child, room);
         log.info("IN addChildToRoom - child: {} successfully added - room: {}", child.getName(), room.getName());
     }
 
     @Override
     public void removeChildFromRoom(Child child, Room room) {
-        this.roomFileRepository.removeChildFromRoom(child, room);
+        this.roomRepository.removeChildFromRoom(child, room);
         log.info("IN removeChildToRoom - child: {} successfully removed - room {}", child.getName(), room.getName());
     }
 
@@ -122,14 +140,14 @@ public class RoomServiceImplementation implements RoomService {
         if (toy.getToyRoomId() != null) {
             this.removeToyFromRoom(toy, getRoomById(toy.getToyRoomId()));
         }
-        this.toyFileRepository.addToyToRoom(toy, room);
-        this.roomFileRepository.addToyToRoom(toy, room);
+        this.toyRepository.addToyToRoom(toy, room);
+        this.roomRepository.addToyToRoom(toy, room);
         log.info("IN addToyToRoom - toy: {} successfully added - room: {}", toy.getName(), room.getName());
     }
 
     @Override
     public void removeToyFromRoom(Toy toy, Room room) {
-        this.roomFileRepository.removeToyFromRoom(toy, room);
+        this.roomRepository.removeToyFromRoom(toy, room);
         log.info("IN removeToyFromRoom - toy: {} successfully removed - room {}", toy.getName(), room.getName());
     }
 

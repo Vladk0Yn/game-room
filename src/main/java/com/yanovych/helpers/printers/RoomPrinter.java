@@ -1,8 +1,6 @@
 package com.yanovych.helpers.printers;
 
-import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
-import com.yanovych.entities.Toy;
 import lombok.Setter;
 
 import java.util.List;

@@ -1,12 +1,11 @@
-package com.yanovych.repository.implementations;
+package com.yanovych.repositories.implementations;
 
 import com.google.gson.reflect.TypeToken;
-import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
 import com.yanovych.entities.Toy;
 import com.yanovych.helpers.ObjectFileReader;
 import com.yanovych.helpers.ObjectFileWriter;
-import com.yanovych.repository.interfaces.ToyRepository;
+import com.yanovych.repositories.interfaces.ToyRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,9 +13,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class ToyFromFileRepository implements ToyRepository {
-    private final ObjectFileReader<Toy> reader;
-    private final ObjectFileWriter<Toy> writer;
-    private List<Toy> toys;
+    private ObjectFileReader<Toy> reader = null;
+    private ObjectFileWriter<Toy> writer= null;
+    private List<Toy> toys = null;
     private static ToyFromFileRepository instance = null;
 
     private ToyFromFileRepository() {
@@ -45,8 +44,8 @@ public class ToyFromFileRepository implements ToyRepository {
 
     @Override
     public void addToy(Toy toy) {
-        if (this.toys == null || this.toys.isEmpty()) {
-            this.toys = new ArrayList<>();
+        this.toys = this.getAllToys();
+        if (this.toys.isEmpty()) {
             toy.setId(1L);
         } else {
             Long lastToyId = this.toys.stream()
@@ -65,6 +64,7 @@ public class ToyFromFileRepository implements ToyRepository {
 
     @Override
     public void updateToy(Toy toy) {
+        this.toys = this.getAllToys();
         for (int i = 0; i < this.toys.size(); i++) {
             if (toy.getId().equals(this.toys.get(i).getId())) {
                 this.toys.set(i, toy);

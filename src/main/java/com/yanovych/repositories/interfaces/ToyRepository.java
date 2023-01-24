@@ -1,6 +1,5 @@
-package com.yanovych.repository.interfaces;
+package com.yanovych.repositories.interfaces;
 
-import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
 import com.yanovych.entities.Toy;
 

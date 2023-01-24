@@ -1,4 +1,4 @@
-package com.yanovych.repository.implementations;
+package com.yanovych.repositories.implementations;
 
 import com.google.gson.reflect.TypeToken;
 import com.yanovych.entities.Child;
@@ -6,7 +6,7 @@ import com.yanovych.entities.Room;
 import com.yanovych.entities.Toy;
 import com.yanovych.helpers.ObjectFileReader;
 import com.yanovych.helpers.ObjectFileWriter;
-import com.yanovych.repository.interfaces.RoomRepository;
+import com.yanovych.repositories.interfaces.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -45,8 +45,7 @@ public class RoomFromFileRepository implements RoomRepository {
 
     @Override
     public void addRoom(Room room) {
-        if (this.rooms == null || this.rooms.isEmpty()) {
-            this.rooms  = new ArrayList<>();
+        if (this.rooms.isEmpty()) {
             room.setId(1L);
         } else {
             Long lastRoomId = this.rooms.stream().max(Comparator.comparingLong(Room::getId)).get().getId();

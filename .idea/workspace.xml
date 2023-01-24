@@ -4,13 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63b2719f-3303-4171-9b28-a8d789b69f17" name="Changes" comment="create search and sort methods, create printers for entities, fix bugs">
+    <list default="true" id="63b2719f-3303-4171-9b28-a8d789b69f17" name="Changes" comment="fix bugs, v-0.1">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/ConnectionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ChildFromDbRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/RoomFromDbRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ToyFromDbRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/yanovych/repositories/ChildFromFileRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/yanovych/repositories/ToyFromFileRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/yanovych/services/ChildServiceImplementationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/printers/ChildPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/printers/ChildPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children.json" beforeDir="false" afterPath="$PROJECT_DIR$/children.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms.json" beforeDir="false" afterPath="$PROJECT_DIR$/rooms.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Child.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Child.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Toy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Toy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/ObjectFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/ObjectFileReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/printers/RoomPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/printers/RoomPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/MainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/SortToysInRoomItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/SortToysInRoomItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/print/PrintChildrenItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/print/PrintChildrenItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/print/PrintToysItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/print/PrintToysItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/create/CreateChildItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/create/CreateChildItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/print/PrintRoomsItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/print/PrintRoomsItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/implementations/ChildFromFileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ChildFromFileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/implementations/RoomFromFileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/RoomFromFileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/implementations/ToyFromFileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ToyFromFileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/interfaces/ChildRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/ChildRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/interfaces/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/RoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repository/interfaces/ToyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/ToyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ChildServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ChildServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/RoomServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/RoomServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ToyServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ToyServiceImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ChildService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ChildService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ToyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ToyService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,11 +70,14 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2Ixwtyc7g3LT1cewmPbLwRxBv89" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
@@ -56,23 +85,131 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Study/java_projects/GameRoom&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application">
+      <envs>
+        <env name="DATA_SOURCE" value="file" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="com.yanovych.Main" />
       <module name="GameRoom" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="18" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.yanovych.Main" />
+      <module name="GameRoom" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChildFromFileRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GameRoom" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yanovych.repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yanovych.repositories" />
+      <option name="MAIN_CLASS_NAME" value="com.yanovych.repositories.ChildFromFileRepositoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ToyFromFileRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GameRoom" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yanovych.repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yanovych.repositories" />
+      <option name="MAIN_CLASS_NAME" value="com.yanovych.repositories.ToyFromFileRepositoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ToyFromFileRepositoryTest.addToyIfListNotEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GameRoom" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yanovych.repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yanovych.repositories" />
+      <option name="MAIN_CLASS_NAME" value="com.yanovych.repositories.ToyFromFileRepositoryTest" />
+      <option name="METHOD_NAME" value="addToyIfListNotEmpty" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ToyFromFileRepositoryTest.addToyToRoom" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GameRoom" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yanovych.repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yanovych.repositories" />
+      <option name="MAIN_CLASS_NAME" value="com.yanovych.repositories.ToyFromFileRepositoryTest" />
+      <option name="METHOD_NAME" value="addToyToRoom" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ToyFromFileRepositoryTest.updateToy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GameRoom" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yanovych.repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yanovych.repositories" />
+      <option name="MAIN_CLASS_NAME" value="com.yanovych.repositories.ToyFromFileRepositoryTest" />
+      <option name="METHOD_NAME" value="updateToy" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ToyFromFileRepositoryTest" />
+        <item itemvalue="JUnit.ChildFromFileRepositoryTest" />
+        <item itemvalue="JUnit.ToyFromFileRepositoryTest.addToyToRoom" />
+        <item itemvalue="JUnit.ToyFromFileRepositoryTest.updateToy" />
+        <item itemvalue="JUnit.ToyFromFileRepositoryTest.addToyIfListNotEmpty" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -116,7 +253,33 @@
       <workItem from="1673274812944" duration="4528000" />
       <workItem from="1673286040199" duration="3740000" />
       <workItem from="1673342430775" duration="21774000" />
-      <workItem from="1673428517959" duration="1629000" />
+      <workItem from="1673428517959" duration="3804000" />
+      <workItem from="1673549017101" duration="665000" />
+      <workItem from="1673601984102" duration="1689000" />
+      <workItem from="1673789182717" duration="186000" />
+      <workItem from="1673789384787" duration="16000" />
+      <workItem from="1673789414382" duration="116000" />
+      <workItem from="1673789546210" duration="7617000" />
+      <workItem from="1673800328074" duration="32000" />
+      <workItem from="1673800385677" duration="1672000" />
+      <workItem from="1673804018918" duration="5618000" />
+      <workItem from="1673815226162" duration="1577000" />
+      <workItem from="1673859086568" duration="595000" />
+      <workItem from="1674035121389" duration="594000" />
+      <workItem from="1674049107543" duration="1000" />
+      <workItem from="1674073366385" duration="162000" />
+      <workItem from="1674162495129" duration="1471000" />
+      <workItem from="1674223410261" duration="7304000" />
+      <workItem from="1674294087141" duration="1250000" />
+      <workItem from="1674298323944" duration="12377000" />
+      <workItem from="1674319741456" duration="7047000" />
+      <workItem from="1674328178763" duration="5000" />
+      <workItem from="1674337528946" duration="37000" />
+      <workItem from="1674340417932" duration="606000" />
+      <workItem from="1674465563404" duration="2546000" />
+      <workItem from="1674480533074" duration="2972000" />
+      <workItem from="1674501348301" duration="2360000" />
+      <workItem from="1674549652154" duration="4560000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1671143247989</created>
@@ -174,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673375901437</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix bugs, v-0.1">
+      <created>1673431612616</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1673431612616</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +370,18 @@
     <MESSAGE value="fix bugs, small changes" />
     <MESSAGE value="create add toy to room service and repo methods, fix bugs" />
     <MESSAGE value="create search and sort methods, create printers for entities, fix bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="create search and sort methods, create printers for entities, fix bugs" />
+    <MESSAGE value="fix bugs, v-0.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bugs, v-0.1" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/GameRoom$ChildFromFileRepositoryTest.ic" NAME="ChildFromFileRepositoryTest Coverage Results" MODIFIED="1674328033844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.yanovych.repositories.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GameRoom$ChildServiceImplementationTest.ic" NAME="ChildServiceImplementationTest Coverage Results" MODIFIED="1674325476095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.yanovych.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/GameRoom$ToyFromFileRepositoryTest.ic" NAME="ToyFromFileRepositoryTest Coverage Results" MODIFIED="1674328071885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.yanovych.repositories.*</FILTER>
+    </SUITE>
   </component>
 </project>

@@ -1,8 +1,9 @@
 package com.yanovych.services.implementations;
 
 import com.yanovych.entities.Child;
-import com.yanovych.repository.implementations.ChildFromFileRepository;
-import com.yanovych.repository.interfaces.ChildRepository;
+import com.yanovych.repositories.implementations.ChildFromDbRepository;
+import com.yanovych.repositories.implementations.ChildFromFileRepository;
+import com.yanovych.repositories.interfaces.ChildRepository;
 import com.yanovych.services.interfaces.ChildService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,9 +12,19 @@ import java.util.List;
 @Slf4j
 public class ChildServiceImplementation implements ChildService {
     private static ChildServiceImplementation instance = null;
-    private final ChildRepository childFileRepository = ChildFromFileRepository.getInstance();
+    private ChildRepository childRepository = null;
 
     private ChildServiceImplementation() {
+        String dataSource = System.getenv("DATA_SOURCE");
+        dataSource = dataSource == null ? "file" : dataSource;
+        switch (dataSource) {
+            case "file" -> childRepository = ChildFromFileRepository.getInstance();
+            case "db" -> childRepository = ChildFromDbRepository.getInstance();
+            default -> {
+                log.error("Error at reading environment variable DATA_SOURCE, default data source is file");
+                childRepository = ChildFromFileRepository.getInstance();
+            }
+        }
     }
 
     public static ChildServiceImplementation getInstance() {
@@ -25,7 +36,7 @@ public class ChildServiceImplementation implements ChildService {
 
     @Override
     public Child getChildById(Long id) {
-        Child child = this.childFileRepository.getChildById(id);
+        Child child = this.childRepository.getChildById(id);
         if (child == null) {
             log.error("IN getChildById - no child with id: {}", id);
             return null;
@@ -36,21 +47,14 @@ public class ChildServiceImplementation implements ChildService {
 
     @Override
     public void createChild(Child child) {
-        childFileRepository.addChild(child);
+        childRepository.addChild(child);
         log.info("IN createChild - child: {} successfully created", child.getName());
     }
 
     @Override
     public List<Child> getAllChildren() {
-        List<Child> children = childFileRepository.getAllChildren();
+        List<Child> children = childRepository.getAllChildren();
         log.info("IN getAllChildren - children: {} successfully received", children.size());
-        return children;
-    }
-
-    @Override
-    public List<Child> getChildrenWithoutRoom() {
-        List<Child> children = getAllChildren().stream().filter(c -> c.getRoomId() == null).toList();
-        log.info("IN getChildrenWithoutRoom - {} children successfully found", children.size());
         return children;
     }
 }

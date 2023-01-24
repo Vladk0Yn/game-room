@@ -21,7 +21,10 @@ public class ObjectFileReader<T> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return new Gson().<ArrayList<T>>fromJson(info.toString(), type);
+        List<T> objects = new Gson().<ArrayList<T>>fromJson(info.toString(), type);
+        if (objects != null) {
+            return objects;
+        }
+        return new ArrayList<>();
     }
 }

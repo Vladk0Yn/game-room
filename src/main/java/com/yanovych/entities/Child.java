@@ -4,6 +4,7 @@ import com.yanovych.entities.enums.Sex;
 import lombok.*;
 
 @Data
+@AllArgsConstructor
 public class Child {
 
     private Long id;

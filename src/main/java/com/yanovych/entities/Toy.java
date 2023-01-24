@@ -7,6 +7,7 @@ import com.yanovych.entities.enums.ToyType;
 import lombok.*;
 
 @Data
+@AllArgsConstructor
 public class Toy {
     private Long id;
     private String name;
