@@ -1,12 +1,8 @@
 package com.yanovych;
 
-import com.yanovych.helpers.ConnectionManager;
 import com.yanovych.menu.MainMenu;
-
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 @Slf4j

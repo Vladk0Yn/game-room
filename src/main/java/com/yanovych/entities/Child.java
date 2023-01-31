@@ -1,10 +1,13 @@
 package com.yanovych.entities;
 
 import com.yanovych.entities.enums.Sex;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Child {
 
     private Long id;

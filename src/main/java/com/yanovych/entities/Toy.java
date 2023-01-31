@@ -4,10 +4,13 @@ import com.yanovych.entities.enums.Color;
 import com.yanovych.entities.enums.ToyMaterial;
 import com.yanovych.entities.enums.ToySize;
 import com.yanovych.entities.enums.ToyType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Toy {
     private Long id;
     private String name;

@@ -3,7 +3,6 @@ package com.yanovych.helpers;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,7 +13,6 @@ public class ConnectionManager {
     private String CONNECTION_URL;
     private String USER;
     private String PASSWORD;
-
     private static ConnectionManager instance;
 
     private ConnectionManager() {
@@ -29,19 +27,15 @@ public class ConnectionManager {
     }
 
     private void readConnectionProperties() {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        try (InputStream is = classloader.getResourceAsStream("db.properties")) {
-
-            Properties properties = new Properties();
-            properties.load(is);
-
+        try {
+            Properties properties = PropertiesManager.getProperties("project.properties");
             this.CONNECTION_URL = properties.getProperty("url");
             this.USER = properties.getProperty("user");
             this.PASSWORD = properties.getProperty("password");
-
-        } catch (IOException exception) {
-            log.error("Db properties file not found");
-        };
+        } catch (IOException e) {
+            log.error("Properties file not found");
+            throw new RuntimeException(e);
+        }
     }
 
     public Connection getConnection() throws SQLException {

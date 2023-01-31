@@ -3,6 +3,7 @@ package com.yanovych.services.implementations;
 import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
 import com.yanovych.entities.Toy;
+import com.yanovych.helpers.PropertiesManager;
 import com.yanovych.repositories.implementations.*;
 import com.yanovych.repositories.interfaces.ChildRepository;
 import com.yanovych.repositories.interfaces.RoomRepository;
@@ -10,9 +11,11 @@ import com.yanovych.repositories.interfaces.ToyRepository;
 import com.yanovych.services.interfaces.RoomService;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Properties;
 
 @Slf4j
 public class RoomServiceImplementation implements RoomService {
@@ -23,8 +26,14 @@ public class RoomServiceImplementation implements RoomService {
     private final ToyRepository toyRepository;
 
     private RoomServiceImplementation() {
-        String dataSource = System.getenv("DATA_SOURCE");
-        dataSource = dataSource == null ? "file" : dataSource;
+        String dataSource;
+        try {
+            Properties properties = PropertiesManager.getProperties("project.properties");
+            dataSource = properties.getProperty("datasource");
+        } catch (IOException e) {
+            log.error("Properties file not found");
+            throw new RuntimeException(e);
+        }
         switch (dataSource) {
             case "file" -> {
                 roomRepository = RoomFromFileRepository.getInstance();
@@ -154,13 +163,16 @@ public class RoomServiceImplementation implements RoomService {
     @Override
     public List<Room> getAvailableRoomsForAge(Integer age) {
         return this.getAllRooms().stream()
-                .filter(room -> room.getMinimumChildAge() <= age && room.getMaximumChildAge() >= age)
+                .filter(room -> room.getMinimumChildAge() >= age && room.getMaximumChildAge() >= age)
                 .toList();
     }
 
     @Override
     public List<Room> getAvailableRoomsForToy(Toy toy) {
-        List<Room> availableRoomsByBudget = this.getAvailableRoomsForAge(toy.getMinimumAge()).stream()
+        List<Room> availableRoomByAge = this.getAllRooms().stream()
+                .filter(room -> room.getMinimumChildAge() <= toy.getMinimumAge())
+                .toList();
+        List<Room> availableRoomsByBudget = availableRoomByAge.stream()
                 .filter(room -> room.getBudget() >= toy.getPrice())
                 .toList();
         List<Room> availableRooms = new ArrayList<>();

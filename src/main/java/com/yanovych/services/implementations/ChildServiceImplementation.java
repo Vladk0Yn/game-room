@@ -1,13 +1,16 @@
 package com.yanovych.services.implementations;
 
 import com.yanovych.entities.Child;
+import com.yanovych.helpers.PropertiesManager;
 import com.yanovych.repositories.implementations.ChildFromDbRepository;
 import com.yanovych.repositories.implementations.ChildFromFileRepository;
 import com.yanovych.repositories.interfaces.ChildRepository;
 import com.yanovych.services.interfaces.ChildService;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 @Slf4j
 public class ChildServiceImplementation implements ChildService {
@@ -15,8 +18,14 @@ public class ChildServiceImplementation implements ChildService {
     private ChildRepository childRepository = null;
 
     private ChildServiceImplementation() {
-        String dataSource = System.getenv("DATA_SOURCE");
-        dataSource = dataSource == null ? "file" : dataSource;
+        String dataSource;
+        try {
+            Properties properties = PropertiesManager.getProperties("project.properties");
+            dataSource = properties.getProperty("datasource");
+        } catch (IOException e) {
+            log.error("Properties file not found");
+            throw new RuntimeException(e);
+        }
         switch (dataSource) {
             case "file" -> childRepository = ChildFromFileRepository.getInstance();
             case "db" -> childRepository = ChildFromDbRepository.getInstance();

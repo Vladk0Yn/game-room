@@ -1,6 +1,5 @@
 package com.yanovych.services.interfaces;
 
-import com.yanovych.entities.Child;
 import com.yanovych.entities.Room;
 import com.yanovych.entities.Toy;
 

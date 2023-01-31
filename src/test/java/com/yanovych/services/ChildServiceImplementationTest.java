@@ -23,7 +23,6 @@ public class ChildServiceImplementationTest {
 
     @Mock
     private ChildRepository childRepository;
-
     @InjectMocks
     private ChildServiceImplementation childServiceImplementation;
 

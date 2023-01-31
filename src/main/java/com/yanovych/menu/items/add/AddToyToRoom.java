@@ -46,7 +46,7 @@ public class AddToyToRoom implements MenuItem {
         while (room == null) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Available rooms for this toy: ");
-            EntityPrinter printer = new RoomPrinter(this.roomService.getAvailableRoomsForAge(toy.getMinimumAge()));
+            EntityPrinter printer = new RoomPrinter(this.roomService.getAvailableRoomsForToy(toy));
             printer.print();
             System.out.print("Enter room id  -> ");
             Long id = scanner.nextLong();

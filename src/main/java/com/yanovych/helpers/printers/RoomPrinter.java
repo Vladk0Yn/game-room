@@ -19,7 +19,7 @@ public class RoomPrinter implements EntityPrinter {
             System.out.println("------------------------------------------------------------------------");
             System.out.print("ID: " + room.getId());
             System.out.println(" | Name: " + room.getName());
-            System.out.print("Capacity: " + room.getCapacity());
+            System.out.print("Toys capacity: " + room.getCapacity());
             System.out.print(" | Budget: " + room.getBudget() + "$");
             System.out.println(" | Min/Max age: " + room.getMinimumChildAge() + "/" + room.getMaximumChildAge());
             if (room.getChildrenInRoom() != null && !room.getChildrenInRoom().isEmpty()) {
