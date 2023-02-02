@@ -163,7 +163,7 @@ public class RoomServiceImplementation implements RoomService {
     @Override
     public List<Room> getAvailableRoomsForAge(Integer age) {
         return this.getAllRooms().stream()
-                .filter(room -> room.getMinimumChildAge() >= age && room.getMaximumChildAge() >= age)
+                .filter(room -> room.getMinimumChildAge() <= age && room.getMaximumChildAge() >= age)
                 .toList();
     }
 
@@ -187,5 +187,10 @@ public class RoomServiceImplementation implements RoomService {
         }
         log.info("IN getAvailableRoomsForToy - {} rooms is available", availableRooms.size());
         return availableRooms;
+    }
+
+    @Override
+    public void deleteRoom(Room room) {
+        this.roomRepository.deleteRoom(room);
     }
 }

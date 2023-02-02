@@ -19,6 +19,7 @@ public class RoomFromDbRepository implements RoomRepository {
     private final static String UPDATE_ROOM_SQL = "UPDATE room SET room_name = ?, room_capacity = ?, room_budget = ?, room_max_child_age = ?, room_min_child_age = ? WHERE room_id = ?;";
     private final static String SELECT_CHILDREN_FROM_ROOM = "SELECT * FROM child WHERE child_room_id = ?";
     private final static String SELECT_TOYS_FROM_ROOM = "SELECT * FROM toy WHERE toy_room_id = ?";
+    private final static String DELETE_ROOM_SQL = "DELETE FROM room WHERE room_id = ?;";
     private static RoomFromDbRepository instance = null;
     private final ConnectionManager connectionManager;
     private RoomFromDbRepository() {
@@ -66,6 +67,17 @@ public class RoomFromDbRepository implements RoomRepository {
             executeUpdate(updateStatement, "Room was not updated");
         } catch (SQLException e) {
             throw new DaoOperationException(String.format("Cannot update room with id = %d", room.getId()), e);
+        }
+    }
+
+    @Override
+    public void deleteRoom(Room room) {
+        try (Connection connection = connectionManager.getConnection()) {
+            PreparedStatement deleteStatement = connection.prepareStatement(DELETE_ROOM_SQL);
+            deleteStatement.setLong(1, room.getId());
+            executeUpdate(deleteStatement, "Room was not deleted");
+        } catch (SQLException e) {
+            throw new DaoOperationException(String.format("Cannot delete room with id = %d", room.getId()), e);
         }
     }
 

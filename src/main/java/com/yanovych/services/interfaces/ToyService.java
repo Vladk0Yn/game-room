@@ -11,4 +11,5 @@ public interface ToyService {
     List<Toy> getAllToys();
     List<Toy> sortToysInRoomByType(Room room);
     List<Toy> findToysInRoomByDiapasonOfPrice(Room room, Double priceMin, Double priceMax);
+    void deleteToy(Toy toy);
 }

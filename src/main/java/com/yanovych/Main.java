@@ -15,7 +15,7 @@ public class Main {
         MainMenu menu = new MainMenu();
 
         while (true) {
-            System.out.println("Available commands: " + menu.getAvailableCommands());
+            System.out.println("Available commands:\n" + menu.getAvailableCommands());
             System.out.print("Choose action -> ");
             menu.execute(scanner.nextLine());
         }

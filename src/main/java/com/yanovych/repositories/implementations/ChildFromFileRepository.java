@@ -69,6 +69,13 @@ public class ChildFromFileRepository implements ChildRepository {
     }
 
     @Override
+    public void deleteChild(Child child) {
+        this.children = this.getAllChildren();
+        this.children.remove(child);
+        this.writer.writeListOfObjects("children.json", this.children, false);
+    }
+
+    @Override
     public void addChildToRoom(Child child, Room room) {
         child.setRoomId(room.getId());
         this.updateChild(child);

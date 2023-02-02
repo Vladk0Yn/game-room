@@ -17,6 +17,7 @@ public class ChildFromDbRepository implements ChildRepository {
     private final static String SELECT_CHILD_BY_ID_SQL = "SELECT * FROM child WHERE child_id = ?;";
     private final static String SELECT_ALL_CHILDREN_SQL = "SELECT * FROM child;";
     private final static String UPDATE_CHILD_SQL = "UPDATE child SET child_name = ?, child_age = ?, child_sex = ?, child_room_id = ? WHERE child_id = ?;";
+    private final static String DELETE_CHILD_SQL = "DELETE FROM child WHERE child_id = ?;";
     private static ChildFromDbRepository instance = null;
     private final ConnectionManager connectionManager;
 
@@ -65,6 +66,17 @@ public class ChildFromDbRepository implements ChildRepository {
             executeUpdate(updateStatement, "Child was not updated");
         } catch (SQLException e) {
             throw new DaoOperationException(String.format("Cannot update child with id = %d", child.getId()), e);
+        }
+    }
+
+    @Override
+    public void deleteChild(Child child) {
+        try (Connection connection = connectionManager.getConnection()) {
+            PreparedStatement deleteStatement = connection.prepareStatement(DELETE_CHILD_SQL);
+            deleteStatement.setLong(1, child.getId());
+            executeUpdate(deleteStatement, "Child was not deleted");
+        } catch (SQLException e) {
+            throw new DaoOperationException(String.format("Cannot delete child with id = %d", child.getId()), e);
         }
     }
 

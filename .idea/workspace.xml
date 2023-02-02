@@ -4,31 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63b2719f-3303-4171-9b28-a8d789b69f17" name="Changes" comment="fix bugs, connect db">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/exceptions/DaoOperationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/PropertiesManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/yanovych/services/ToyServiceImplementationTest.java" afterDir="false" />
+    <list default="true" id="63b2719f-3303-4171-9b28-a8d789b69f17" name="Changes" comment="add db repository">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/delete/DeleteChildItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/delete/DeleteRoomItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/delete/DeleteToyItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/children.json" beforeDir="false" afterPath="$PROJECT_DIR$/children.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rooms.json" beforeDir="false" afterPath="$PROJECT_DIR$/rooms.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Child.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Child.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Toy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/entities/Toy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/ConnectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/printers/RoomPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/helpers/printers/RoomPrinter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/add/AddToyToRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/items/add/AddToyToRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/menu/MainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ChildFromDbRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ChildFromDbRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ChildFromFileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ChildFromFileRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/RoomFromDbRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/RoomFromDbRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/RoomFromFileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/RoomFromFileRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ToyFromDbRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ToyFromDbRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ToyFromFileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/implementations/ToyFromFileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/ChildRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/ChildRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/RoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/ToyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/repositories/interfaces/ToyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ChildServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ChildServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/RoomServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/RoomServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ToyServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/implementations/ToyServiceImplementation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ChildService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ChildService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/RoomService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ToyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yanovych/services/interfaces/ToyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/yanovych/services/ChildServiceImplementationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/yanovych/services/ChildServiceImplementationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toys.json" beforeDir="false" afterPath="$PROJECT_DIR$/toys.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -284,6 +284,10 @@
       <workItem from="1675076143756" duration="3738000" />
       <workItem from="1675095649686" duration="7916000" />
       <workItem from="1675157805959" duration="1803000" />
+      <workItem from="1675190176886" duration="305000" />
+      <workItem from="1675247909095" duration="16354000" />
+      <workItem from="1675328666370" duration="1065000" />
+      <workItem from="1675342457583" duration="1200000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1671143247989</created>
@@ -355,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674565928201</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add db repository">
+      <created>1675190255262</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1675190255262</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,7 +394,8 @@
     <MESSAGE value="create search and sort methods, create printers for entities, fix bugs" />
     <MESSAGE value="fix bugs, v-0.1" />
     <MESSAGE value="fix bugs, connect db" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bugs, connect db" />
+    <MESSAGE value="add db repository" />
+    <option name="LAST_COMMIT_MESSAGE" value="add db repository" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/GameRoom$ChildFromFileRepositoryTest.ic" NAME="ChildFromFileRepositoryTest Coverage Results" MODIFIED="1674328033844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

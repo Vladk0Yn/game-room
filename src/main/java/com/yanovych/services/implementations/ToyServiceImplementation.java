@@ -3,8 +3,11 @@ package com.yanovych.services.implementations;
 import com.yanovych.entities.Room;
 import com.yanovych.entities.Toy;
 import com.yanovych.helpers.PropertiesManager;
+import com.yanovych.repositories.implementations.RoomFromDbRepository;
+import com.yanovych.repositories.implementations.RoomFromFileRepository;
 import com.yanovych.repositories.implementations.ToyFromDbRepository;
 import com.yanovych.repositories.implementations.ToyFromFileRepository;
+import com.yanovych.repositories.interfaces.RoomRepository;
 import com.yanovych.repositories.interfaces.ToyRepository;
 import com.yanovych.services.interfaces.ToyService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +21,7 @@ import java.util.Properties;
 public class ToyServiceImplementation implements ToyService {
     private static ToyServiceImplementation instance = null;
     private ToyRepository toyRepository = null;
+    private RoomRepository roomRepository = null;
     private ToyServiceImplementation() {
         String dataSource;
         try {
@@ -29,11 +33,18 @@ public class ToyServiceImplementation implements ToyService {
         }
 
         switch (dataSource) {
-            case "file" -> toyRepository = ToyFromFileRepository.getInstance();
-            case "db" -> toyRepository = ToyFromDbRepository.getInstance();
+            case "file" -> {
+                toyRepository = ToyFromFileRepository.getInstance();
+                roomRepository = RoomFromFileRepository.getInstance();
+            }
+            case "db" -> {
+                toyRepository = ToyFromDbRepository.getInstance();
+                roomRepository = RoomFromDbRepository.getInstance();
+            }
             default -> {
                 log.error("Error at reading data source, default data source is file");
                 toyRepository = ToyFromFileRepository.getInstance();
+                roomRepository = RoomFromFileRepository.getInstance();
             }
         }
     }
@@ -81,5 +92,14 @@ public class ToyServiceImplementation implements ToyService {
         return room.getToysInRoom().stream()
                 .filter(toy -> toy.getPrice() >= priceMin && toy.getPrice() <= priceMax)
                 .toList();
+    }
+
+    @Override
+    public void deleteToy(Toy toy) {
+        if (toy.getToyRoomId() != null) {
+            Room toyRoom = this.roomRepository.getRoomById(toy.getToyRoomId());
+            this.roomRepository.removeToyFromRoom(toy, toyRoom);
+        }
+        this.toyRepository.deleteToy(toy);
     }
 }

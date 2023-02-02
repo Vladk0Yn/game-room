@@ -18,6 +18,7 @@ public class ToyFromDbRepository implements ToyRepository {
     private final static String SELECT_TOY_BY_ID_SQL = "SELECT * FROM toy WHERE toy_id = ?;";
     private final static String SELECT_ALL_TOYS_SQL = "SELECT * FROM toy;";
     private final static String UPDATE_TOY_SQL = "UPDATE toy SET toy_name = ?, toy_min_age = ?, toy_price = ?,  toy_type = ?, toy_size = ?, toy_color = ?,  toy_material = ?, toy_room_id = ? WHERE toy_id = ?;";
+    private final static String DELETE_TOY_SQL = "DELETE FROM toy WHERE toy_id = ?;";
     private static ToyFromDbRepository instance = null;
     private final ConnectionManager connectionManager;
     private ToyFromDbRepository() {
@@ -79,6 +80,17 @@ public class ToyFromDbRepository implements ToyRepository {
             executeUpdate(updateStatement, "Toy was not updated");
         } catch (SQLException e) {
             throw new DaoOperationException(String.format("Cannot update toy with id = %d", toy.getId()), e);
+        }
+    }
+
+    @Override
+    public void deleteToy(Toy toy) {
+        try (Connection connection = connectionManager.getConnection()) {
+            PreparedStatement deleteStatement = connection.prepareStatement(DELETE_TOY_SQL);
+            deleteStatement.setLong(1, toy.getId());
+            executeUpdate(deleteStatement, "Toy was not deleted");
+        } catch (SQLException e) {
+            throw new DaoOperationException(String.format("Cannot delete toy with id = %d", toy.getId()), e);
         }
     }
 

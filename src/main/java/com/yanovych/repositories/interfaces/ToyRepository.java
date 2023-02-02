@@ -9,6 +9,7 @@ public interface ToyRepository {
     Toy getToyById(Long id);
     List<Toy> getAllToys();
     void addToy(Toy toy);
-    void addToyToRoom(Toy toy, Room room);
     void updateToy(Toy toy);
+    void deleteToy(Toy toy);
+    void addToyToRoom(Toy toy, Room room);
 }

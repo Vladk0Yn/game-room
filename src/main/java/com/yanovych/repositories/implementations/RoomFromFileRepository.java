@@ -18,11 +18,15 @@ public class RoomFromFileRepository implements RoomRepository {
     private final ObjectFileWriter<Room> writer;
     private List<Room> rooms;
     private static RoomFromFileRepository instance = null;
+    private ChildFromFileRepository childFromFileRepository = null;
+    private ToyFromFileRepository toyFromFileRepository = null;
 
     private RoomFromFileRepository() {
         this.reader = new ObjectFileReader<>();
         this.writer = new ObjectFileWriter<>();
         this.rooms = this.getAllRooms();
+        this.childFromFileRepository = ChildFromFileRepository.getInstance();
+        this.toyFromFileRepository = ToyFromFileRepository.getInstance();
     }
 
     public static RoomFromFileRepository getInstance() {
@@ -34,6 +38,7 @@ public class RoomFromFileRepository implements RoomRepository {
 
     @Override
     public Room getRoomById(Long id) {
+        this.rooms = this.getAllRooms();
         return this.getAllRooms().stream()
                 .filter(room -> Objects.equals(room.getId(), id)).findAny().orElse(null);
     }
@@ -45,6 +50,7 @@ public class RoomFromFileRepository implements RoomRepository {
 
     @Override
     public void addRoom(Room room) {
+        this.rooms = this.getAllRooms();
         if (this.rooms.isEmpty()) {
             room.setId(1L);
         } else {
@@ -57,6 +63,7 @@ public class RoomFromFileRepository implements RoomRepository {
 
     @Override
     public void updateRoom(Room room) {
+        this.rooms = this.getAllRooms();
         for (int i = 0; i < this.rooms.size(); i++) {
             if (room.getId().equals(this.rooms.get(i).getId())) {
                 this.rooms.set(i, room);
@@ -67,7 +74,25 @@ public class RoomFromFileRepository implements RoomRepository {
     }
 
     @Override
+    public void deleteRoom(Room room) {
+        this.rooms = this.getAllRooms();
+        List<Child> children = room.getChildrenInRoom();
+        children.forEach(child -> {
+            child.setRoomId(null);
+            this.childFromFileRepository.updateChild(child);
+        });
+        List<Toy> toys = room.getToysInRoom();
+        toys.forEach(toy -> {
+            toy.setToyRoomId(null);
+            this.toyFromFileRepository.updateToy(toy);
+        });
+        this.rooms.remove(room);
+        writer.writeListOfObjects("rooms.json", this.rooms, false);
+    }
+
+    @Override
     public void addChildToRoom(Child child, Room room) {
+        this.rooms = this.getAllRooms();
         List<Child> childrenInRoom = room.getChildrenInRoom();
         if (childrenInRoom == null) {
             childrenInRoom = new ArrayList<>();
@@ -79,6 +104,7 @@ public class RoomFromFileRepository implements RoomRepository {
 
     @Override
     public void removeChildFromRoom(Child child, Room room) {
+        this.rooms = this.getAllRooms();
         List<Child> childrenInRoom = room.getChildrenInRoom();
         childrenInRoom.removeIf(childInRoom -> Objects.equals(childInRoom.getId(), child.getId()));
         room.setChildrenInRoom(childrenInRoom);
@@ -87,6 +113,7 @@ public class RoomFromFileRepository implements RoomRepository {
 
     @Override
     public void addToyToRoom(Toy toy, Room room) {
+        this.rooms = this.getAllRooms();
         List<Toy> toysInRoom = room.getToysInRoom();
         if (toysInRoom == null) {
            toysInRoom = new ArrayList<>();
@@ -99,6 +126,7 @@ public class RoomFromFileRepository implements RoomRepository {
 
     @Override
     public void removeToyFromRoom(Toy toy, Room room) {
+        this.rooms = this.getAllRooms();
         List<Toy> toysInRoom = room.getToysInRoom();
         room.setBudget(room.getBudget() + toy.getPrice());
         toysInRoom.removeIf(toyInRoom -> Objects.equals(toyInRoom.getId(), toy.getId()));

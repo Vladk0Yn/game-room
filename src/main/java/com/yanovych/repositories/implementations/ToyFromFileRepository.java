@@ -73,4 +73,11 @@ public class ToyFromFileRepository implements ToyRepository {
             }
         }
     }
+
+    @Override
+    public void deleteToy(Toy toy) {
+        this.getAllToys();
+        this.toys.remove(toy);
+        this.writer.writeListOfObjects("toys.json", this.toys, false);
+    }
 }

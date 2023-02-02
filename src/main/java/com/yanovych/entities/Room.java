@@ -2,6 +2,7 @@ package com.yanovych.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -16,7 +17,9 @@ public class Room {
     private Double budget;
     private Integer minimumChildAge;
     private Integer maximumChildAge;
+    @EqualsAndHashCode.Exclude
     private List<Child> childrenInRoom;
+    @EqualsAndHashCode.Exclude
     private List<Toy> toysInRoom;
 
     public Room(String name, Integer capacity, Double budget, Integer minimumChildAge, Integer maximumChildAge) {

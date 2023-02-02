@@ -15,4 +15,5 @@ public interface RoomRepository {
     void addToyToRoom(Toy toy, Room room);
     void removeToyFromRoom(Toy toy, Room room);
     void updateRoom(Room room);
+    void deleteRoom(Room room);
 }

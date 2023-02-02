@@ -1,10 +1,14 @@
 package com.yanovych.services.implementations;
 
 import com.yanovych.entities.Child;
+import com.yanovych.entities.Room;
 import com.yanovych.helpers.PropertiesManager;
 import com.yanovych.repositories.implementations.ChildFromDbRepository;
 import com.yanovych.repositories.implementations.ChildFromFileRepository;
+import com.yanovych.repositories.implementations.RoomFromDbRepository;
+import com.yanovych.repositories.implementations.RoomFromFileRepository;
 import com.yanovych.repositories.interfaces.ChildRepository;
+import com.yanovych.repositories.interfaces.RoomRepository;
 import com.yanovych.services.interfaces.ChildService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +20,7 @@ import java.util.Properties;
 public class ChildServiceImplementation implements ChildService {
     private static ChildServiceImplementation instance = null;
     private ChildRepository childRepository = null;
+    private RoomRepository roomRepository = null;
 
     private ChildServiceImplementation() {
         String dataSource;
@@ -27,11 +32,18 @@ public class ChildServiceImplementation implements ChildService {
             throw new RuntimeException(e);
         }
         switch (dataSource) {
-            case "file" -> childRepository = ChildFromFileRepository.getInstance();
-            case "db" -> childRepository = ChildFromDbRepository.getInstance();
+            case "file" -> {
+                childRepository = ChildFromFileRepository.getInstance();
+                roomRepository = RoomFromFileRepository.getInstance();
+            }
+            case "db" -> {
+                childRepository = ChildFromDbRepository.getInstance();
+                roomRepository = RoomFromDbRepository.getInstance();
+            }
             default -> {
                 log.error("Error at reading environment variable DATA_SOURCE, default data source is file");
                 childRepository = ChildFromFileRepository.getInstance();
+                roomRepository = RoomFromFileRepository.getInstance();
             }
         }
     }
@@ -65,5 +77,14 @@ public class ChildServiceImplementation implements ChildService {
         List<Child> children = childRepository.getAllChildren();
         log.info("IN getAllChildren - children: {} successfully received", children.size());
         return children;
+    }
+
+    @Override
+    public void deleteChild(Child child) {
+        if (child.getRoomId() != null) {
+            Room childRoom = roomRepository.getRoomById(child.getRoomId());
+            this.roomRepository.removeChildFromRoom(child, childRoom);
+        }
+        this.childRepository.deleteChild(child);
     }
 }

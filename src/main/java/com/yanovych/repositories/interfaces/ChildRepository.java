@@ -11,5 +11,6 @@ public interface ChildRepository {
     List<Child> getAllChildren();
     void addChild(Child child);
     void updateChild(Child child);
+    void deleteChild(Child child);
     void addChildToRoom(Child child, Room room);
 }
