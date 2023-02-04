@@ -11,6 +11,9 @@ import com.yanovych.menu.items.create.CreateToyItem;
 import com.yanovych.menu.items.delete.DeleteChildItem;
 import com.yanovych.menu.items.delete.DeleteRoomItem;
 import com.yanovych.menu.items.delete.DeleteToyItem;
+import com.yanovych.menu.items.edit.EditChildItem;
+import com.yanovych.menu.items.edit.EditRoomItem;
+import com.yanovych.menu.items.edit.EditToyItem;
 import com.yanovych.menu.items.print.PrintChildrenItem;
 import com.yanovych.menu.items.print.PrintRoomsItem;
 import com.yanovych.menu.items.print.PrintToysItem;
@@ -20,7 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class MainMenu {
-    private Map<String, MenuItem> menuItems;
+    private final Map<String, MenuItem> menuItems;
 
     public MainMenu() {
         menuItems = new LinkedHashMap<>();
@@ -32,6 +35,9 @@ public class MainMenu {
         menuItems.put("print-children", new PrintChildrenItem());
         menuItems.put("print-toys", new PrintToysItem());
         menuItems.put("print-rooms", new PrintRoomsItem());
+        menuItems.put("edit-child", new EditChildItem());
+        menuItems.put("edit-toy", new EditToyItem());
+        menuItems.put("edit-room", new EditRoomItem());
         menuItems.put("delete-child", new DeleteChildItem());
         menuItems.put("delete-toy", new DeleteToyItem());
         menuItems.put("delete-room", new DeleteRoomItem());

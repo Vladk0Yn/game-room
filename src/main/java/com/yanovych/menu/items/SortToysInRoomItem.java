@@ -19,7 +19,7 @@ public class SortToysInRoomItem implements MenuItem {
     private final RoomService roomService = RoomServiceImplementation.getInstance();
     @Override
     public void doAction() {
-        List<Toy> toys = toyService.sortToysInRoomByType(chooseRoomFromKeyboardInput());
+        List<Toy> toys = toyService.sortToysInRoomByType(getRoomsFromListByUser());
         printToys(toys);
     }
 
@@ -27,12 +27,21 @@ public class SortToysInRoomItem implements MenuItem {
         EntityPrinter printer = new ToyPrinter(toys);
         printer.print();
     }
-    private Room chooseRoomFromKeyboardInput() {
-        Scanner scanner = new Scanner(System.in);
-        EntityPrinter printer = new RoomPrinter(roomService.getAllRooms());
-        printer.print();
-        System.out.print("Enter room id -> ");
-        Long id = scanner.nextLong();
-        return roomService.getRoomById(id);
+    private Room getRoomsFromListByUser() {
+        Room room = null;
+        while (room == null) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("All rooms: ");
+            EntityPrinter printer = new RoomPrinter(this.roomService.getAllRooms());
+            printer.print();
+            System.out.print("Enter room id in which you want sort toys  -> ");
+            Long id = scanner.nextLong();
+            scanner.nextLine();
+            room = this.roomService.getRoomById(id);
+            if (room == null) {
+                System.out.println("No room with id " + id);
+            }
+        }
+        return room;
     }
 }

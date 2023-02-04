@@ -95,11 +95,22 @@ public class ToyServiceImplementation implements ToyService {
     }
 
     @Override
+    public void updateToy(Toy toy) {
+        if (toy != null) {
+            this.toyRepository.updateToy(toy);
+            log.info("IN updateToy - toy: {} successfully updated", toy.getName());
+        } else {
+            log.error("IN updateToy - toy has not updated, because toy is null");
+        }
+    }
+
+    @Override
     public void deleteToy(Toy toy) {
         if (toy.getToyRoomId() != null) {
             Room toyRoom = this.roomRepository.getRoomById(toy.getToyRoomId());
             this.roomRepository.removeToyFromRoom(toy, toyRoom);
         }
         this.toyRepository.deleteToy(toy);
+        log.info("IN deleteToy - toy: {} successfully deleted", toy.getName());
     }
 }

@@ -11,6 +11,7 @@ import com.yanovych.services.implementations.ToyServiceImplementation;
 import com.yanovych.services.interfaces.RoomService;
 import com.yanovych.services.interfaces.ToyService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class AddToyToRoom implements MenuItem {
@@ -20,7 +21,9 @@ public class AddToyToRoom implements MenuItem {
     public void doAction() {
         Toy toy = getToyFromListByUser();
         Room room = getRoomForToyFromListByUser(toy);
-        this.roomService.addToyToRoom(toy, room);
+        if (toy != null && room != null) {
+            this.roomService.addToyToRoom(toy, room);
+        }
     }
 
     private Toy getToyFromListByUser() {
@@ -46,7 +49,11 @@ public class AddToyToRoom implements MenuItem {
         while (room == null) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Available rooms for this toy: ");
-            EntityPrinter printer = new RoomPrinter(this.roomService.getAvailableRoomsForToy(toy));
+            List<Room> rooms = this.roomService.getAvailableRoomsForToy(toy);
+            if (rooms == null) {
+                break;
+            }
+            EntityPrinter printer = new RoomPrinter(rooms);
             printer.print();
             System.out.print("Enter room id  -> ");
             Long id = scanner.nextLong();

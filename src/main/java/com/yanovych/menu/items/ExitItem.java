@@ -5,6 +5,6 @@ import com.yanovych.menu.MenuItem;
 public class ExitItem implements MenuItem {
     @Override
     public void doAction() {
-
+        System.exit(0);
     }
 }

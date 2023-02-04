@@ -8,5 +8,6 @@ public interface ChildService {
     Child getChildById(Long id);
     void createChild(Child child);
     List<Child> getAllChildren();
+    void updateChild(Child child);
     void deleteChild(Child child);
 }

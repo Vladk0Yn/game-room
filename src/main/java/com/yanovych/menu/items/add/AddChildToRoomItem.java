@@ -11,6 +11,7 @@ import com.yanovych.services.implementations.RoomServiceImplementation;
 import com.yanovych.services.interfaces.ChildService;
 import com.yanovych.services.interfaces.RoomService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class AddChildToRoomItem implements MenuItem {
@@ -20,7 +21,9 @@ public class AddChildToRoomItem implements MenuItem {
     public void doAction() {
         Child child = getChildFromListByUser();
         Room room = getRoomForChildFromListByUser(child);
-        this.roomService.addChildToRoom(child, room);
+        if (child != null && room != null) {
+            this.roomService.addChildToRoom(child, room);
+        }
     }
 
     private Child getChildFromListByUser() {
@@ -46,7 +49,11 @@ public class AddChildToRoomItem implements MenuItem {
         while (room == null) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Available rooms for this child: ");
-            EntityPrinter printer = new RoomPrinter(this.roomService.getAvailableRoomsForAge(child.getAge()));
+            List<Room> rooms = this.roomService.getAvailableRoomsForAge(child.getAge());
+            if (rooms == null) {
+                break;
+            }
+            EntityPrinter printer = new RoomPrinter(rooms);
             printer.print();
             System.out.print("Enter room id  -> ");
             Long id = scanner.nextLong();

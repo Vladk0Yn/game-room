@@ -162,9 +162,15 @@ public class RoomServiceImplementation implements RoomService {
 
     @Override
     public List<Room> getAvailableRoomsForAge(Integer age) {
-        return this.getAllRooms().stream()
+        List<Room> availableRooms = this.getAllRooms().stream()
                 .filter(room -> room.getMinimumChildAge() <= age && room.getMaximumChildAge() >= age)
                 .toList();
+        if (availableRooms.size() > 0) {
+            log.info("IN getAvailableRoomsForAge - {} rooms is available", availableRooms.size());
+            return availableRooms;
+        }
+        log.info("IN getAvailableRoomsForAge - no available rooms");
+        return null;
     }
 
     @Override
@@ -185,12 +191,27 @@ public class RoomServiceImplementation implements RoomService {
                 availableRooms.add(room);
             }
         }
-        log.info("IN getAvailableRoomsForToy - {} rooms is available", availableRooms.size());
-        return availableRooms;
+        if (availableRooms.size() > 0) {
+            log.info("IN getAvailableRoomsForToy - {} rooms is available", availableRooms.size());
+            return availableRooms;
+        }
+        log.info("IN getAvailableRoomsForToy - no available rooms");
+        return null;
+    }
+
+    @Override
+    public void updateRoom(Room room) {
+        if (room != null) {
+            this.roomRepository.updateRoom(room);
+            log.info("IN updateRoom - room: {} successfully updated", room.getName());
+        } else {
+            log.error("IN updateRoom - room has not updated, because room is null");
+        }
     }
 
     @Override
     public void deleteRoom(Room room) {
         this.roomRepository.deleteRoom(room);
+        log.info("IN deleteRoom - room: {} successfully deleted", room.getName());
     }
 }

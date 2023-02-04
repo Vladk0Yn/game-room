@@ -80,11 +80,22 @@ public class ChildServiceImplementation implements ChildService {
     }
 
     @Override
+    public void updateChild(Child child) {
+        if (child != null) {
+            this.childRepository.updateChild(child);
+            log.info("IN updateChild - child: {} successfully updated", child.getName());
+        } else {
+            log.error("IN updateChild - child has not updated, because child is null");
+        }
+    }
+
+    @Override
     public void deleteChild(Child child) {
         if (child.getRoomId() != null) {
             Room childRoom = roomRepository.getRoomById(child.getRoomId());
             this.roomRepository.removeChildFromRoom(child, childRoom);
         }
         this.childRepository.deleteChild(child);
+        log.info("IN deleteChild - child: {} successfully deleted", child.getName());
     }
 }

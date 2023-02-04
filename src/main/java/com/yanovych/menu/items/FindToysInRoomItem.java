@@ -19,7 +19,7 @@ public class FindToysInRoomItem implements MenuItem {
     private final RoomService roomService = RoomServiceImplementation.getInstance();
     @Override
     public void doAction() {
-        Room room = chooseRoomFromKeyboardInput();
+        Room room = getRoomsFromListByUser();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter minimum price of toy -> ");
         Double minPrice = scanner.nextDouble();
@@ -33,12 +33,21 @@ public class FindToysInRoomItem implements MenuItem {
         printer.print();
     }
 
-    private Room chooseRoomFromKeyboardInput() {
-        Scanner scanner = new Scanner(System.in);
-        EntityPrinter printer = new RoomPrinter(roomService.getAllRooms());
-        printer.print();
-        System.out.print("Enter room id -> ");
-        Long id = scanner.nextLong();
-        return roomService.getRoomById(id);
+    private Room getRoomsFromListByUser() {
+        Room room = null;
+        while (room == null) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("All rooms: ");
+            EntityPrinter printer = new RoomPrinter(this.roomService.getAllRooms());
+            printer.print();
+            System.out.print("Enter room id in which you want find toys  -> ");
+            Long id = scanner.nextLong();
+            scanner.nextLine();
+            room = this.roomService.getRoomById(id);
+            if (room == null) {
+                System.out.println("No room with id " + id);
+            }
+        }
+        return room;
     }
 }
