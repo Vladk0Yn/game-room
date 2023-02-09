@@ -24,6 +24,10 @@ public class SortToysInRoomItem implements MenuItem {
     }
 
     private void printToys(List<Toy> toys) {
+        System.out.println("Sort result:");
+        if(toys.isEmpty()) {
+            System.out.println("No toys in room");
+        }
         EntityPrinter printer = new ToyPrinter(toys);
         printer.print();
     }

@@ -27,6 +27,9 @@ public class ChildServiceImplementation implements ChildService {
         try {
             Properties properties = PropertiesManager.getProperties("project.properties");
             dataSource = properties.getProperty("datasource");
+            if (dataSource == null) {
+                throw new IOException();
+            }
         } catch (IOException e) {
             log.error("Properties file not found");
             throw new RuntimeException(e);
@@ -41,7 +44,7 @@ public class ChildServiceImplementation implements ChildService {
                 roomRepository = RoomFromDbRepository.getInstance();
             }
             default -> {
-                log.error("Error at reading environment variable DATA_SOURCE, default data source is file");
+                log.error("Error at reading datasource property, default data source is file");
                 childRepository = ChildFromFileRepository.getInstance();
                 roomRepository = RoomFromFileRepository.getInstance();
             }
@@ -59,7 +62,7 @@ public class ChildServiceImplementation implements ChildService {
     public Child getChildById(Long id) {
         Child child = this.childRepository.getChildById(id);
         if (child == null) {
-            log.error("IN getChildById - no child with id: {}", id);
+            log.warn("IN getChildById - no child with id: {}", id);
             return null;
         }
         log.info("IN getChildById - child: {} successfully found", child.getName());
@@ -85,7 +88,7 @@ public class ChildServiceImplementation implements ChildService {
             this.childRepository.updateChild(child);
             log.info("IN updateChild - child: {} successfully updated", child.getName());
         } else {
-            log.error("IN updateChild - child has not updated, because child is null");
+            log.warn("IN updateChild - child was not updated, because child is null");
         }
     }
 

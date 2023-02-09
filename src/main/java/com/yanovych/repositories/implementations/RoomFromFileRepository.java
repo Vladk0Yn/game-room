@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class RoomFromFileRepository implements RoomRepository {
-    private final ObjectFileReader<Room> reader;
-    private final ObjectFileWriter<Room> writer;
+    private ObjectFileReader<Room> reader = null;
+    private ObjectFileWriter<Room> writer = null;
     private List<Room> rooms;
     private static RoomFromFileRepository instance = null;
     private ChildFromFileRepository childFromFileRepository = null;
@@ -77,15 +77,19 @@ public class RoomFromFileRepository implements RoomRepository {
     public void deleteRoom(Room room) {
         this.rooms = this.getAllRooms();
         List<Child> children = room.getChildrenInRoom();
-        children.forEach(child -> {
-            child.setRoomId(null);
-            this.childFromFileRepository.updateChild(child);
-        });
+        if (children != null) {
+            children.forEach(child -> {
+                child.setRoomId(null);
+                this.childFromFileRepository.updateChild(child);
+            });
+        }
         List<Toy> toys = room.getToysInRoom();
-        toys.forEach(toy -> {
-            toy.setToyRoomId(null);
-            this.toyFromFileRepository.updateToy(toy);
-        });
+        if (toys != null) {
+            toys.forEach(toy -> {
+                toy.setToyRoomId(null);
+                this.toyFromFileRepository.updateToy(toy);
+            });
+        }
         this.rooms.remove(room);
         writer.writeListOfObjects("rooms.json", this.rooms, false);
     }

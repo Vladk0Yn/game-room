@@ -21,15 +21,18 @@ import java.util.Properties;
 public class RoomServiceImplementation implements RoomService {
 
     private static RoomServiceImplementation instance = null;
-    private final RoomRepository roomRepository;
-    private final ChildRepository childRepository;
-    private final ToyRepository toyRepository;
+    private RoomRepository roomRepository = null;
+    private ChildRepository childRepository = null;
+    private ToyRepository toyRepository = null;
 
     private RoomServiceImplementation() {
         String dataSource;
         try {
             Properties properties = PropertiesManager.getProperties("project.properties");
             dataSource = properties.getProperty("datasource");
+            if (dataSource == null) {
+                throw new IOException();
+            }
         } catch (IOException e) {
             log.error("Properties file not found");
             throw new RuntimeException(e);
@@ -46,7 +49,7 @@ public class RoomServiceImplementation implements RoomService {
                 toyRepository = ToyFromDbRepository.getInstance();
             }
             default -> {
-                log.error("Error at reading environment variable DATA_SOURCE, default data source is file");
+                log.error("Error at reading datasource property, default data source is file");
                 childRepository = ChildFromFileRepository.getInstance();
                 roomRepository = RoomFromFileRepository.getInstance();
                 toyRepository = ToyFromFileRepository.getInstance();
@@ -65,9 +68,10 @@ public class RoomServiceImplementation implements RoomService {
     public Room getRoomById(Long id) {
         Room room = this.roomRepository.getRoomById(id);
         if (room == null) {
-            log.error("IN getRoomById - no room with id: {}", id);
+            log.warn("IN getRoomById - no room with id: {}", id);
             return null;
         }
+        log.info("IN getRoomById - room: {} successfully found", room.getName());
         return room;
     }
 
@@ -78,7 +82,7 @@ public class RoomServiceImplementation implements RoomService {
                 .filter(room -> Objects.equals(room.getId(), id))
                 .findAny().orElse(null);
         if (roomForChildAge == null) {
-            log.error("IN getRoomForChildAgeById - no room with id: {}", id);
+            log.warn("IN getRoomForChildAgeById - no room with id: {}", id);
             return null;
         }
         log.info("IN getRoomForChildAgeById - room: {} successfully found", roomForChildAge.getName());
@@ -92,7 +96,7 @@ public class RoomServiceImplementation implements RoomService {
                 .filter(room -> Objects.equals(room.getId(), id))
                 .findAny().orElse(null);
         if (roomForToy == null) {
-            log.error("IN getRoomForToyByRoomId - no room with id: {}", id);
+            log.warn("IN getRoomForToyByRoomId - no room with id: {}", id);
             return null;
         }
         log.info("IN getRoomForToyByRoomId - room: {} successfully found", roomForToy.getName());
@@ -114,8 +118,8 @@ public class RoomServiceImplementation implements RoomService {
 
     @Override
     public void addChildToRoom(Child child, Room room) {
-        if (room.getToysInRoom() != null && room.getChildrenInRoom().contains(child)) {
-            log.error("IN addChildToRoom - child: {} already in room", child.getName());
+        if (room.getChildrenInRoom() != null && room.getChildrenInRoom().contains(child)) {
+            log.warn("IN addChildToRoom - child: {} already in room", child.getName());
             return;
         }
         if (child.getRoomId() != null) {
@@ -123,27 +127,27 @@ public class RoomServiceImplementation implements RoomService {
         }
         this.childRepository.addChildToRoom(child, room);
         this.roomRepository.addChildToRoom(child, room);
-        log.info("IN addChildToRoom - child: {} successfully added - room: {}", child.getName(), room.getName());
+        log.info("IN addChildToRoom - child: {} successfully added to room: {}", child.getName(), room.getName());
     }
 
     @Override
     public void removeChildFromRoom(Child child, Room room) {
         this.roomRepository.removeChildFromRoom(child, room);
-        log.info("IN removeChildToRoom - child: {} successfully removed - room {}", child.getName(), room.getName());
+        log.info("IN removeChildFromRoom - child: {} successfully removed from room: {}", child.getName(), room.getName());
     }
 
     @Override
     public void addToyToRoom(Toy toy, Room room) {
         if (room.getToysInRoom() != null && room.getToysInRoom().contains(toy)) {
-            log.error("IN addToyToRoom - toy: {} already in room", toy.getName());
+            log.warn("IN addToyToRoom - toy: {} already in room", toy.getName());
             return;
         }
         if (room.getBudget() < toy.getPrice()) {
-            log.error("IN addToyToRoom - room: {} budget is not enough for - toy: {}", room.getName(), toy.getName());
+            log.warn("IN addToyToRoom - room: {} budget is not enough for toy: {}", room.getName(), toy.getName());
             return;
         }
         if (room.getToysInRoom() != null && !room.getToysInRoom().isEmpty() && room.getCapacity() < room.getToysInRoom().size() + 1) {
-            log.error("IN addToyToRoom - room: {} is full of toys", room.getName());
+            log.warn("IN addToyToRoom - room: {} is full of toys", room.getName());
             return;
         }
         if (toy.getToyRoomId() != null) {
@@ -151,26 +155,27 @@ public class RoomServiceImplementation implements RoomService {
         }
         this.toyRepository.addToyToRoom(toy, room);
         this.roomRepository.addToyToRoom(toy, room);
-        log.info("IN addToyToRoom - toy: {} successfully added - room: {}", toy.getName(), room.getName());
+        log.info("IN addToyToRoom - toy: {} successfully added to room: {}", toy.getName(), room.getName());
     }
 
     @Override
     public void removeToyFromRoom(Toy toy, Room room) {
         this.roomRepository.removeToyFromRoom(toy, room);
-        log.info("IN removeToyFromRoom - toy: {} successfully removed - room {}", toy.getName(), room.getName());
+        log.info("IN removeToyFromRoom - toy: {} successfully removed from room {}", toy.getName(), room.getName());
     }
 
     @Override
     public List<Room> getAvailableRoomsForAge(Integer age) {
-        List<Room> availableRooms = this.getAllRooms().stream()
+        List<Room> availableRooms;
+        availableRooms = this.getAllRooms().stream()
                 .filter(room -> room.getMinimumChildAge() <= age && room.getMaximumChildAge() >= age)
                 .toList();
         if (availableRooms.size() > 0) {
             log.info("IN getAvailableRoomsForAge - {} rooms is available", availableRooms.size());
             return availableRooms;
         }
-        log.info("IN getAvailableRoomsForAge - no available rooms");
-        return null;
+        log.warn("IN getAvailableRoomsForAge - no available rooms");
+        return availableRooms;
     }
 
     @Override
@@ -195,8 +200,8 @@ public class RoomServiceImplementation implements RoomService {
             log.info("IN getAvailableRoomsForToy - {} rooms is available", availableRooms.size());
             return availableRooms;
         }
-        log.info("IN getAvailableRoomsForToy - no available rooms");
-        return null;
+        log.warn("IN getAvailableRoomsForToy - no available rooms");
+        return availableRooms;
     }
 
     @Override
@@ -205,7 +210,7 @@ public class RoomServiceImplementation implements RoomService {
             this.roomRepository.updateRoom(room);
             log.info("IN updateRoom - room: {} successfully updated", room.getName());
         } else {
-            log.error("IN updateRoom - room has not updated, because room is null");
+            log.warn("IN updateRoom - room has not updated, because room is null");
         }
     }
 

@@ -58,6 +58,7 @@ public class ToyFromFileRepository implements ToyRepository {
 
     @Override
     public void addToyToRoom(Toy toy, Room room) {
+        this.toys = this.getAllToys();
         toy.setToyRoomId(room.getId());
         this.updateToy(toy);
     }
@@ -76,7 +77,7 @@ public class ToyFromFileRepository implements ToyRepository {
 
     @Override
     public void deleteToy(Toy toy) {
-        this.getAllToys();
+        this.toys = this.getAllToys();
         this.toys.remove(toy);
         this.writer.writeListOfObjects("toys.json", this.toys, false);
     }

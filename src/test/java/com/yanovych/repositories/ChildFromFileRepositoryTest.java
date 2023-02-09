@@ -136,4 +136,24 @@ public class ChildFromFileRepositoryTest {
         assertEquals(expectedChildren, actualChildren);
         verify(writer).writeListOfObjects("children.json", actualChildren, false);
     }
+    @Test
+    void deleteChild() {
+        List<Child> expectedChildren = new ArrayList<>();
+
+        expectedChildren.add(new Child(5L, "Test1", 1, Sex.MALE, 1L));
+        expectedChildren.add(new Child(2L, "Test2", 2, Sex.FEMALE, 2L));
+
+        List<Child> actualChildren = new ArrayList<>();
+
+        actualChildren.add(new Child(5L, "Test1", 1, Sex.MALE, 1L));
+        actualChildren.add(new Child(2L, "Test2", 2, Sex.FEMALE, 2L));
+        actualChildren.add(new Child(6L, "Test3", 3, Sex.FEMALE, null));
+
+        when(reader.readListOfObjects(any(), any())).thenReturn(actualChildren);
+
+        childFromFileRepository.deleteChild(actualChildren.get(2));
+
+        assertEquals(expectedChildren, actualChildren);
+        verify(writer).writeListOfObjects("children.json", actualChildren, false);
+    }
 }

@@ -50,7 +50,6 @@ public class ToyFromFileRepositoryTest {
 
         assertEquals(expectedToys.get(1), actualToy);
     }
-
     @Test
     void getAllToys() {
         List<Toy> expectedToys = new ArrayList<>();
@@ -67,7 +66,6 @@ public class ToyFromFileRepositoryTest {
 
         assertEquals(expectedToys, actualToys);
     }
-
     @Test
     void addToyIfListNotEmpty() {
         List<Toy> expectedToys = new ArrayList<>();
@@ -97,7 +95,6 @@ public class ToyFromFileRepositoryTest {
         assertEquals(expectedToys, actualToys);
         verify(writer).writeListOfObjects("toys.json", actualToys, false);
     }
-
     @Test
     void addToyIfListEmpty() {
         List<Toy> expectedToys = new ArrayList<>();
@@ -115,7 +112,6 @@ public class ToyFromFileRepositoryTest {
         assertEquals(expectedToys, actualToys);
         verify(writer).writeListOfObjects("toys.json", actualToys, false);
     }
-
     @Test
     void updateToy() {
         List<Toy> expectedToys = new ArrayList<>();
@@ -179,6 +175,34 @@ public class ToyFromFileRepositoryTest {
         room.setId(3L);
 
         toyFromFileRepository.addToyToRoom(toy, room);
+
+        assertEquals(expectedToys, actualToys);
+        verify(writer).writeListOfObjects("toys.json", actualToys, false);
+    }
+    @Test
+    void deleteToy() {
+        List<Toy> expectedToys = new ArrayList<>();
+        expectedToys.add(
+                new Toy(1L, "Test1", 1, 1.0, null,
+                        ToyType.ANIMAL, ToySize.MEDIUM, Color.MULTI_COLOR, ToyMaterial.WOOD));
+        expectedToys.add(
+                new Toy(2L, "Test2", 3, 1.0, null,
+                        ToyType.ANIMAL, ToySize.MEDIUM, Color.MULTI_COLOR, ToyMaterial.WOOD));
+
+        List<Toy> actualToys = new ArrayList<>();
+        actualToys.add(
+                new Toy(1L, "Test1", 1, 1.0, null,
+                        ToyType.ANIMAL, ToySize.MEDIUM, Color.MULTI_COLOR, ToyMaterial.WOOD));
+        actualToys.add(
+                new Toy(2L, "Test2", 3, 1.0, null,
+                        ToyType.ANIMAL, ToySize.MEDIUM, Color.MULTI_COLOR, ToyMaterial.WOOD));
+        actualToys.add(
+                new Toy(3L, "Test3", 2, 1.0, null,
+                        ToyType.ANIMAL, ToySize.MEDIUM, Color.MULTI_COLOR, ToyMaterial.WOOD));
+
+        when(reader.readListOfObjects(any(),any())).thenReturn(actualToys);
+
+        toyFromFileRepository.deleteToy(actualToys.get(2));
 
         assertEquals(expectedToys, actualToys);
         verify(writer).writeListOfObjects("toys.json", actualToys, false);

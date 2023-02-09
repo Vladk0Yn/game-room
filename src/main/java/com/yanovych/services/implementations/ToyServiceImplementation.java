@@ -13,6 +13,7 @@ import com.yanovych.services.interfaces.ToyService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
@@ -27,11 +28,13 @@ public class ToyServiceImplementation implements ToyService {
         try {
             Properties properties = PropertiesManager.getProperties("project.properties");
             dataSource = properties.getProperty("datasource");
+            if (dataSource == null) {
+                throw new IOException();
+            }
         } catch (IOException e) {
             log.error("Properties file not found");
             throw new RuntimeException(e);
         }
-
         switch (dataSource) {
             case "file" -> {
                 toyRepository = ToyFromFileRepository.getInstance();
@@ -42,7 +45,7 @@ public class ToyServiceImplementation implements ToyService {
                 roomRepository = RoomFromDbRepository.getInstance();
             }
             default -> {
-                log.error("Error at reading data source, default data source is file");
+                log.error("Error at reading datasource property, default data source is file");
                 toyRepository = ToyFromFileRepository.getInstance();
                 roomRepository = RoomFromFileRepository.getInstance();
             }
@@ -60,7 +63,7 @@ public class ToyServiceImplementation implements ToyService {
     public Toy getToyById(Long id) {
         Toy toy = this.toyRepository.getToyById(id);
         if (toy == null) {
-            log.error("IN getToyById - no toy with id: {}", id);
+            log.warn("IN getToyById - no toy with id: {}", id);
             return null;
         }
         log.info("IN getToyById - toy: {} successfully found", toy.getName());
@@ -82,16 +85,34 @@ public class ToyServiceImplementation implements ToyService {
 
     @Override
     public List<Toy> sortToysInRoomByType(Room room) {
-        return room.getToysInRoom().stream()
-                .sorted(Comparator.comparing(Toy::getType))
-                .toList();
+        List<Toy> sortedListOfToysInRoom = new ArrayList<>();
+        if (room.getToysInRoom() != null) {
+            sortedListOfToysInRoom = room.getToysInRoom().stream()
+                    .sorted(Comparator.comparing(Toy::getType))
+                    .toList();
+            log.info("IN sortToysInRoomByType - toys in room: {} successfully sorted", room.getName());
+        } else {
+            log.warn("IN sortToysInRoomByType - no toys in room: {}", room.getName());
+        }
+        return sortedListOfToysInRoom;
     }
 
     @Override
     public List<Toy> findToysInRoomByDiapasonOfPrice(Room room, Double priceMin, Double priceMax) {
-        return room.getToysInRoom().stream()
-                .filter(toy -> toy.getPrice() >= priceMin && toy.getPrice() <= priceMax)
-                .toList();
+        List<Toy> foundedListOfToysInRoom = new ArrayList<>();
+        if (room.getToysInRoom() != null) {
+            foundedListOfToysInRoom = room.getToysInRoom().stream()
+                    .filter(toy -> toy.getPrice() >= priceMin && toy.getPrice() <= priceMax)
+                    .toList();
+            if (foundedListOfToysInRoom.isEmpty()) {
+                log.warn("IN findToysInRoomByDiapasonOfPrice - toys in room: {} with minimum price: {}, maximum price: = {} not found", room.getName(), priceMin, priceMax);
+            } else {
+                log.info("IN findToysInRoomByDiapasonOfPrice - {} toys in room: {} successfully found", foundedListOfToysInRoom.size(), room.getName());
+            }
+        } else {
+            log.warn("IN findToysInRoomByDiapasonOfPrice - no toys in room: {}", room.getName());
+        }
+        return foundedListOfToysInRoom;
     }
 
     @Override
@@ -100,7 +121,7 @@ public class ToyServiceImplementation implements ToyService {
             this.toyRepository.updateToy(toy);
             log.info("IN updateToy - toy: {} successfully updated", toy.getName());
         } else {
-            log.error("IN updateToy - toy has not updated, because toy is null");
+            log.warn("IN updateToy - toy has not updated, because toy is null");
         }
     }
 

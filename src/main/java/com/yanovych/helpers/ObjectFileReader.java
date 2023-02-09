@@ -22,9 +22,9 @@ public class ObjectFileReader<T> {
             throw new RuntimeException(e);
         }
         List<T> objects = new Gson().<ArrayList<T>>fromJson(info.toString(), type);
-        if (objects != null) {
-            return objects;
+        if (objects == null) {
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
+        return objects;
     }
 }

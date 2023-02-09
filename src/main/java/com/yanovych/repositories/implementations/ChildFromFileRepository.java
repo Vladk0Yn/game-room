@@ -77,6 +77,7 @@ public class ChildFromFileRepository implements ChildRepository {
 
     @Override
     public void addChildToRoom(Child child, Room room) {
+        this.children = this.getAllChildren();
         child.setRoomId(room.getId());
         this.updateChild(child);
     }

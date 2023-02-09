@@ -29,6 +29,10 @@ public class FindToysInRoomItem implements MenuItem {
         scanner.nextLine();
         List<Toy> searchedToys = this.toyService.findToysInRoomByDiapasonOfPrice(
                 room, minPrice, maxPrice);
+        System.out.println("Search result:");
+        if (searchedToys.isEmpty()) {
+            System.out.println("No toys in room with your parameters");
+        }
         EntityPrinter printer = new ToyPrinter(searchedToys);
         printer.print();
     }
